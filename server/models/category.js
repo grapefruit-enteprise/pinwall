@@ -11,19 +11,19 @@ exports.categoryCreate = function(req, res, newCat){
     })
 };
 
-//exports.categoryUpdate = function(req, res, paramId){
-//    var updatedNote = {
-//        title: req.body.title,
-//        img: req.body.img,
-//        content: req.body.content
-//    }
-//
-//    console.log("line 22: note", paramId);
-//    db.Note.update(updatedNote,{ where: { id: paramId }})
-//        .then(function (result) {
-//            console.log("line 25: Notes model", result)
-//        })
-//        .catch(function (err) {
-//            console.error("line 28: Notes Model",err.message);
-//        })
-//}
+exports.categoryUpdate = function(req, res, paramId){
+    var updatedCat = {
+        title: req.body.title,
+        description: req.body.description
+    }
+
+    console.log("line 21: Cat", paramId);
+    db.Category.update(updatedCat,{ where: { id: paramId }})
+        .then(function (result) {
+        // result is the number of records affected
+            console.log("line 24: Cat model", result)
+        })
+        .catch(function (err) {
+            console.error("line 27: Cat  Model",err.message);
+        })
+}

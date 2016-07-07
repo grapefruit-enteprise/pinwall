@@ -76,12 +76,9 @@ sequelize.sync().then(function(){
     console.log("created tables");
 })
 
-
-
-
+/// Exports to models
 exports.Note = Note;
 exports.Category = Category;
-//exports.NotesCategories = NotesCategories;
 
 
 
