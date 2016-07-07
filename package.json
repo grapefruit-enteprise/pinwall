@@ -1,0 +1,21 @@
+{
+  "name": "Pinwall",
+  "version": "1.0.0",
+  "description": "Note sharing",
+  "main": "./server/server.js",
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "author": "Marco Berardini, Chadd Bennett, Stephaine Velazquez, Joe Capezzuto",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bower": "1.7.7",
+    "express": "^4.14.0",
+    "lodash": "^4.13.1",
+    "morgan": "^1.7.0",
+    "pg": "^6.0.1",
+    "request": "^2.72.0",
+    "sequelize": "^3.23.4"
+  }
+}
