@@ -7,7 +7,7 @@ console.log("line 4: appController")
 module.exports = {
   'notes': {
     get: function(req, res){
-          console.log('Controller  get notes');
+          console.log('Controller get notes');
 //          models.notes.get(function(data){
 //            res.json(data);
 //        });
@@ -84,10 +84,14 @@ module.exports = {
 
   },
   'categories/:id': {
-    get:function(req, res){},
+    get:function(req, res){
+        var catId = req.params.id;
+        Notes.notesFetchedbyCat(req,res, catId)
+
+    },
     put:function(req, res){
-        var catID = req.params.id;
-        Categories.categoryUpdate(req, res, catID)
+        var catId = req.params.id;
+        Categories.categoryUpdate(req, res, catId)
     },
     delete:function(req, res){},
     post: function(req, res){}

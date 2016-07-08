@@ -1,20 +1,33 @@
 var db = require('../db.js');
 
 
+exports.notesFetchedbyCat = function(req, res, catId){
+    db.Category.findById(catId)
+        .then(function(category){
+//            console.log("line 8: fetch Note", category);
+            category.getNotes()
+                .then(function(notes){
+                console.log("All notes with that catId", JSON.stringify(notes, null ,4))
+                res.send(notes);
+            })
+        })
+
+}
+
 
 exports.noteCreate = function(req, res, newNote, categories) {
-    console.log("line 6: note",newNote);
+    console.log("line 19: note",newNote);
     db.Note.create(newNote)
         .then(function(note){
-        console.log("line 9: Note has been Created");
+        console.log("line 22: Note has been Created");
            note.setCategories(categories, note.id)
                .then(function(note){
-                    console.log("Note joined to Categories");
+                    console.log("NotesCategories has been update !!");
                 });
         })
         .catch(function(err){
             console.error(err.message);
-    });
+        });
 };
 
 exports.noteUpdate = function(req, res, noteId){
@@ -25,26 +38,23 @@ exports.noteUpdate = function(req, res, noteId){
     };
     var categories = req.body.categories;
 
-    console.log("line 28: note", noteId);
-    console.log("line 29: categories", categories);
+    console.log("line 41: note", noteId);
+    console.log("line 42: categories", categories);
     db.Note.update(updatedNote,{ where: { id: noteId }, returning:true})
-        .then(function (result,arr) {
-            console.log("line 31: Notes model", JSON.stringify(result), "Arr", arr);
-            console.log("line 33: arguments", result[1]);
+        .then(function (result) {
+            console.log("line 45: Notes model", JSON.stringify(result));
+            console.log("line 46: arguments", result[1]);
             var note = result[1][0];
             note.setCategories(categories, noteId)
+                .then(function(){
+                console.log("Categories in Note "+ noteId + " are updated !!" )
+            })
         })
         .catch(function (err) {
-            console.error("line 34: Notes Model",err.message);
+            console.error("line 54: Notes Model",err.message);
         });
 };
 
-//
-//models.Product.find({ where: {id: 1} }).on('success', function(product) {
-// models.Category.findAll({where: {id: [1,2,3]}}).on('success', function(category){
-//   product.setCategories(category);
-// });
-//});
 
 
 
