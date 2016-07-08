@@ -1,5 +1,24 @@
 var db = require('../db.js');
 
+exports.categoriesFetched = function(req, res, orgId){
+
+    db.Organization.findById(orgId)
+        .then(function(organization){
+            organization.getCategories()
+            .then(function(categories){
+                console.log("All notes ", JSON.stringify(categories, null ,4));
+                res.status(200).send(categories);
+            })
+            .catch(function (err) {
+                console.error("line 13: Note  Model", err.message);
+                res.status(500).send(err.message);
+
+            });
+    });
+}
+
+
+
 exports.categoryCreate = function(req, res, newCat){
     console.log("line 4: category",newCat);
     db.Category.create(newCat)
@@ -35,10 +54,12 @@ exports.categoryDelete = function(req, res){
         db.Category.findById(catId)
         .then(function(category){
             category.destroy();
-            console.log(category.title + " was removed from the database");
+            console.log("'" + category.title + "'" + " was removed from the database");
+            res.status(200).send("'" + category.title +  "'" + " was removed from the database");
+
         })
         .catch(function (err) {
-            console.error("line 39: Cat  Model",err.message);
+            console.error("line 39: Cat  Model", err.message);
             res.status(500).send(err.message);
 
         });

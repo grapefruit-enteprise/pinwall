@@ -65,10 +65,14 @@ exports.noteUpdate = function(req, res, updatedNote, noteId){
             note.setCategories(categories, noteId)
                 .then(function(){
                     console.log("Categories in Note "+ noteId + " are updated !!" )
+                    res.status(200).send("Note has been updated");
+
             })
         })
         .catch(function (err) {
-            console.error("line 54: Notes Model",err.message);
+            console.error("line 73: Notes Model", err.message);
+            res.status(500).send(err.message)
+
         });
 };
 
@@ -78,9 +82,15 @@ exports.noteDelete = function(req, res, noteId){
         db.Note.findById(noteId)
         .then(function(note){
             note.destroy();
-            console.log(note.title + " was removed from the database");
+            console.log("'" + note.title + "'" + " was removed from the database");
+            res.status(200).send( "'" + note.title + "'" + " was removed from the database");
 
         })
+        .catch(function (err) {
+            console.error("line 89: Notes Model",err.message);
+            res.status(500).send(err.message)
+
+        });
 }
 
 

@@ -100,7 +100,10 @@ module.exports = {
 
   },
   'organizations/:orgId/categories': {
-    get:function(req, res){},
+    get:function(req, res){
+        var orgId = req.params.orgId
+        Categories.categoriesFetched(req, res, orgId)
+    },
     put:function(req, res){},
     delete:function(req, res){},
     post: function(req, res){
