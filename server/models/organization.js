@@ -5,17 +5,24 @@ exports.organizationsFetched = function(req, res){
         .then(function(organizations){
             console.log("All notes ", JSON.stringify(organizations, null ,4));
             res.status(200).send(organizations);
+        })
+        .catch(function(err){
+            console.error(err.message);
+            res.status(500).send(err.message);
         });
 };
 
 exports.organizationCreate = function(req, res, newOrg) {
-    console.log("line 6: note",newOrg);
+    console.log("line 6: note", newOrg);
     db.Organization.create(newOrg)
-        .then(function(note){
+        .then(function(organization){
             console.log("line 9: Organization has been Created");
+            res.status(200).send(organization);
+
         })
         .catch(function(err){
             console.error(err.message);
+            res.status(500).send(err.message);
         });
 };
 
@@ -27,9 +34,12 @@ exports.organizationUpdate = function(req, res, updatedOrg, orgId){
         .then(function (result) {
             console.log("line 45: Notes model", JSON.stringify(result));
             console.log(result + " organization has been updated");
+            res.status(200).send(result + " organization has been updated");
+
         })
         .catch(function (err) {
             console.error("line 27: Notes Model", err.message);
+            res.status(500).send(err.message);
         });
 };
 
@@ -40,5 +50,9 @@ exports.organizationDelete = function(req, res){
         .then(function(organization){
             organization.destroy();
             console.log(organization.name + " was removed from the database");
+        })
+        .catch(function (err) {
+            console.error("line 46: Notes Model", err.message);
+            res.status(500).send(err.message);
         });
 };

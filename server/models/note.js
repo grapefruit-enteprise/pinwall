@@ -1,11 +1,20 @@
 var db = require('../db.js');
 
-exports.notesFetched = function(req, res){
-    db.Note.findAll()
-        .then(function(notes){
-            console.log("All notes ", JSON.stringify(notes, null ,4));
-            res.status(200).send(notes);
-        })
+exports.notesFetched = function(req, res, orgId){
+
+    db.Organization.findById(orgId)
+        .then(function(organization){
+            organization.getNotes()
+            .then(function(notes){
+                console.log("All notes ", JSON.stringify(notes, null ,4));
+                res.status(200).send(notes);
+            })
+            .catch(function (err) {
+                console.error("line 10: Note  Model",err.message);
+                res.status(500).send(err.message);
+
+            });
+    });
 }
 
 exports.notesFetchedbyCat = function(req, res, catId){
@@ -15,8 +24,13 @@ exports.notesFetchedbyCat = function(req, res, catId){
             category.getNotes()
                 .then(function(notes){
                     console.log("All notes with that catId", JSON.stringify(notes, null ,4))
-                    res.send(notes);
+                    res.status(200).send(notes);
             })
+            .catch(function(err){
+                console.error(err.message);
+                res.status(500).send(err.message);
+
+            });
         })
 }
 
@@ -28,10 +42,12 @@ exports.noteCreate = function(req, res, newNote, categories) {
            note.setCategories(categories, note.id)
                .then(function(note){
                     console.log("NotesCategories has been update !!");
+                    res.status(200).send(note)
                 });
         })
         .catch(function(err){
             console.error(err.message);
+
         });
 };
 
@@ -49,10 +65,14 @@ exports.noteUpdate = function(req, res, updatedNote, noteId){
             note.setCategories(categories, noteId)
                 .then(function(){
                     console.log("Categories in Note "+ noteId + " are updated !!" )
+                    res.status(200).send("Note has been updated");
+
             })
         })
         .catch(function (err) {
-            console.error("line 54: Notes Model",err.message);
+            console.error("line 73: Notes Model", err.message);
+            res.status(500).send(err.message)
+
         });
 };
 
@@ -62,9 +82,15 @@ exports.noteDelete = function(req, res, noteId){
         db.Note.findById(noteId)
         .then(function(note){
             note.destroy();
-            console.log(note.title + " was removed from the database");
+            console.log("'" + note.title + "'" + " was removed from the database");
+            res.status(200).send( "'" + note.title + "'" + " was removed from the database");
 
         })
+        .catch(function (err) {
+            console.error("line 89: Notes Model",err.message);
+            res.status(500).send(err.message)
+
+        });
 }
 
 

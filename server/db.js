@@ -4,7 +4,7 @@ var sequelize = new Sequelize('postgres://admin:MSTTGVCHDZJPXQPV@aws-us-east-1-p
 
 sequelize
   .authenticate()
-  .then(function(err) {
+  .then(function (err) {
     console.log('Connection has been established successfully.');
   })
   .catch(function (err) {
@@ -13,7 +13,13 @@ sequelize
 
 
 var Organization = sequelize.define('Organization', {
-      name       : Sequelize.STRING,
+      name       : {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+          }
+        },
       address    : Sequelize.STRING,
       city       : Sequelize.STRING,
       state      : Sequelize.STRING,
@@ -27,31 +33,73 @@ var Organization = sequelize.define('Organization', {
       timestamps : true   // this will deactivate the timestamp columns
 });
 
+
+var User = sequelize.define('User', {
+      username  : {
+        type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+              }
+            },
+      firstname : Sequelize.STRING,
+      lastname  : Sequelize.STRING,
+      createdAt : Sequelize.DATE,
+      updatedAt : Sequelize.DATE,
+      email     : {
+        type: Sequelize.STRING,
+          allowNull: false,
+          unique   : true,
+          validate :{
+              isEmail : true,
+              notEmpty: true
+          }
+      },
+      password  : {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                len: [7,100]
+              }
+            },
+    },{
+      tableName: 'Users',
+      timestamps: true
+});
+
+//var Role = sequelize.define('Role', {
+//     admin     : Sequelize.STRING,
+//     editor    : Sequelize.STRING,
+//     read_only : Sequelize.STRING,
+//     createdAt : Sequelize.DATE,
+//     updatedAt : Sequelize.DATE,
+//     },
 //
-//var User = sequelize.define('Note', {
-//      username  : Sequelize.STRING,
-//      createdAt : Sequelize.DATE,
-//      updatedAt : Sequelize.DATE,
-//      email     :{
-//        type: Sequelize.STRING,
-//          validate:{
-//              isEmail: true
-//          }
-//      },
-//      password  : Sequelize.STRING,
-//    },{
-//      tableName: 'Users', // this will define the table's name
-//      timestamps: true   // this will deactivate the timestamp columns
+//   },{
+//     tableName: 'Roles', // this will define the table's name
+//     timestamps: true   // this will deactivate the timestamp columns
 //});
 
 
 
 var Note = sequelize.define('Note', {
-      title     : Sequelize.STRING,
+      title      : {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+            }
+        },
+      content   : {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        validate:{
+            notEmpty: true
+          }
+        },
       createdAt : Sequelize.DATE,
       updatedAt : Sequelize.DATE,
-      content   : Sequelize.TEXT,
-      img       : Sequelize.STRING,
+      img       : Sequelize.STRING
     },{
       tableName : 'Notes', // this will define the table's name
       timestamps: true   // this will deactivate the timestamp columns
@@ -59,7 +107,13 @@ var Note = sequelize.define('Note', {
 
 
 var Category = sequelize.define('Category', {
-      title      : Sequelize.STRING,
+      title      : {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true
+          }
+        },
       description: Sequelize.TEXT,
       createdAt  : Sequelize.DATE,
       updatedAt  : Sequelize.DATE,
@@ -68,24 +122,50 @@ var Category = sequelize.define('Category', {
       tableName  : 'Categories', // this will define the table's name
       timestamps : true   // this will deactivate the timestamp columns
 });
+var Tag = sequelize.define('Tag', {
+     name: {
+        type:Sequelize.STRING,
+        allowNull: false,
+        validate : {
+            notEmpty: true
+        }
+     },
+     createdAt : Sequelize.DATE,
+     updatedAt : Sequelize.DATE
+
+   },{
+     tableName: 'Tags', // this will define the table's name
+     timestamps: true   // this will deactivate the timestamp columns
+});
 
 
 
 // Association - Relationships
+//User.hasOne(Organization, )
+Organization.hasMany(User,       {foreignKey: 'organizationId'});
 Organization.hasMany(Note,       {foreignKey: 'organizationId'});
 Organization.hasMany(Category,   {foreignKey: 'organizationId'});
 
 Note.belongsToMany(Category, {through: 'NotesCategories', foreignKey: 'noteId'});
 Category.belongsToMany(Note, {through: 'NotesCategories', foreignKey: 'catId'});
 
+Note.belongsToMany(Tag, {through: 'NotesTags', foreignKey: 'noteId'});
+Tag.belongsToMany(Note, {through: 'NotesTags', foreignKey: 'tagId'});
+
 sequelize.sync().then(function(){
     console.log("Created tables in db.js");
 });
+//will drop the tables and init them
+//sequelize.sync({force:true}).then(function(){
+//    console.log("Created tables in db.js");
+//});
 
 /// Exports to models
+exports.User         = User;
 exports.Note         = Note;
 exports.Category     = Category;
 exports.Organization = Organization;
+exports.Tag          = Tag;
 
 
 
