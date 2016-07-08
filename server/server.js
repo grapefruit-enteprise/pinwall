@@ -3,13 +3,10 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
 var routes = require('./routes/routes.js');
-var bd = require('./db.js');
 
 console.log("In server.js file")
 
-
 app.use(bodyParser.json());
-
 
 app.set('port', process.env.PORT ||  8080);
 app.use(morgan('dev'));
@@ -18,8 +15,6 @@ app.use('/api', routes);
   app.use(function(req, res) {
      res.send('404: Page not Found', 404);
   });
-
-
 
 
 app.listen(app.get('port'), function() {
