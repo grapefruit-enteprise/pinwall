@@ -3,7 +3,8 @@ var db = require('../db.js');
 exports.notesFetched = function(req, res){
     db.Note.findAll()
         .then(function(notes){
-            console.log("All notes ", JSON.stringify(notes, null ,4))
+            console.log("All notes ", JSON.stringify(notes, null ,4));
+            res.status(200).send(notes);
         })
 }
 
@@ -13,8 +14,8 @@ exports.notesFetchedbyCat = function(req, res, catId){
 //            console.log("line 8: fetch Note", category);
             category.getNotes()
                 .then(function(notes){
-                console.log("All notes with that catId", JSON.stringify(notes, null ,4))
-                res.send(notes);
+                    console.log("All notes with that catId", JSON.stringify(notes, null ,4))
+                    res.send(notes);
             })
         })
 }
@@ -34,12 +35,8 @@ exports.noteCreate = function(req, res, newNote, categories) {
         });
 };
 
-exports.noteUpdate = function(req, res, noteId){
-    var updatedNote = {
-        title: req.body.title,
-        img: req.body.img,
-        content: req.body.content,
-    };
+exports.noteUpdate = function(req, res, updatedNote, noteId){
+
     var categories = req.body.categories;
 
     console.log("line 41: note", noteId);
@@ -51,7 +48,7 @@ exports.noteUpdate = function(req, res, noteId){
             var note = result[1][0];
             note.setCategories(categories, noteId)
                 .then(function(){
-                console.log("Categories in Note "+ noteId + " are updated !!" )
+                    console.log("Categories in Note "+ noteId + " are updated !!" )
             })
         })
         .catch(function (err) {
@@ -65,6 +62,8 @@ exports.noteDelete = function(req, res, noteId){
         db.Note.findById(noteId)
         .then(function(note){
             note.destroy();
+            console.log(note.title + " was removed from the database");
+
         })
 }
 

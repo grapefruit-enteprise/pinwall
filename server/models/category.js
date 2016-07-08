@@ -11,11 +11,7 @@ exports.categoryCreate = function(req, res, newCat){
     });
 };
 
-exports.categoryUpdate = function(req, res, paramId){
-    var updatedCat = {
-        title: req.body.title,
-        description: req.body.description
-    };
+exports.categoryUpdate = function(req, res, updatedCat, paramId){
 
     console.log("line 21: Cat", paramId);
     db.Category.update(updatedCat,{ where: { id: paramId }})
@@ -33,5 +29,6 @@ exports.categoryDelete = function(req, res){
         db.Category.findById(catId)
         .then(function(category){
             category.destroy();
+            console.log(category.title + " was removed from the database");
         });
 };

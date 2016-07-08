@@ -12,16 +12,20 @@ sequelize
   });
 
 
-//var Organization = sequelize.define('Organization', {
-//      name       : Sequelize.STRING,
-//      createdAt  : Sequelize.DATE,
-//      updatedAt  : Sequelize.DATE,
-//      description: Sequelize.TEXT,
-//      img        : Sequelize.STRING,
-//    },{
-//      tableName  : 'Organizations', // this will define the table's name
-//      timestamps : true   // this will deactivate the timestamp columns
-//});
+var Organization = sequelize.define('Organization', {
+      name       : Sequelize.STRING,
+      address    : Sequelize.STRING,
+      city       : Sequelize.STRING,
+      state      : Sequelize.STRING,
+      phone      : Sequelize.STRING,
+      createdAt  : Sequelize.DATE,
+      updatedAt  : Sequelize.DATE,
+      description: Sequelize.TEXT,
+      img        : Sequelize.STRING,
+    },{
+      tableName  : 'Organizations', // this will define the table's name
+      timestamps : true   // this will deactivate the timestamp columns
+});
 
 //
 //var User = sequelize.define('Note', {
@@ -65,20 +69,23 @@ var Category = sequelize.define('Category', {
       timestamps : true   // this will deactivate the timestamp columns
 });
 
-//Organization.hasMany(Note);
-//Organization.hasMany(User);
 
+
+// Association - Relationships
+Organization.hasMany(Note,       {foreignKey: 'organizationId'});
+Organization.hasMany(Category,   {foreignKey: 'organizationId'});
 
 Note.belongsToMany(Category, {through: 'NotesCategories', foreignKey: 'noteId'});
 Category.belongsToMany(Note, {through: 'NotesCategories', foreignKey: 'catId'});
 
 sequelize.sync().then(function(){
     console.log("Created tables in db.js");
-})
+});
 
 /// Exports to models
-exports.Note = Note;
-exports.Category = Category;
+exports.Note         = Note;
+exports.Category     = Category;
+exports.Organization = Organization;
 
 
 
