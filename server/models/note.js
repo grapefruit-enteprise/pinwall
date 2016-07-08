@@ -1,11 +1,20 @@
 var db = require('../db.js');
 
-exports.notesFetched = function(req, res){
-    db.Note.findAll()
-        .then(function(notes){
-            console.log("All notes ", JSON.stringify(notes, null ,4));
-            res.status(200).send(notes);
-        })
+exports.notesFetched = function(req, res, orgId){
+
+    db.Organization.findById(orgId)
+        .then(function(organization){
+            organization.getNotes()
+            .then(function(notes){
+                console.log("All notes ", JSON.stringify(notes, null ,4));
+                res.status(200).send(notes);
+            })
+            .catch(function (err) {
+                console.error("line 10: Note  Model",err.message);
+                res.status(500).send(err.message);
+
+            });
+    });
 }
 
 exports.notesFetchedbyCat = function(req, res, catId){
@@ -19,6 +28,8 @@ exports.notesFetchedbyCat = function(req, res, catId){
             })
             .catch(function(err){
                 console.error(err.message);
+                res.status(500).send(err.message);
+
             });
         })
 }
@@ -36,6 +47,7 @@ exports.noteCreate = function(req, res, newNote, categories) {
         })
         .catch(function(err){
             console.error(err.message);
+
         });
 };
 
