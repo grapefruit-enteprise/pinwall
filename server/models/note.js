@@ -1,5 +1,11 @@
 var db = require('../db.js');
 
+exports.notesFetched = function(req, res){
+    db.Note.findAll()
+        .then(function(notes){
+            console.log("All notes ", JSON.stringify(notes, null ,4))
+        })
+}
 
 exports.notesFetchedbyCat = function(req, res, catId){
     db.Category.findById(catId)
@@ -11,9 +17,7 @@ exports.notesFetchedbyCat = function(req, res, catId){
                 res.send(notes);
             })
         })
-
 }
-
 
 exports.noteCreate = function(req, res, newNote, categories) {
     console.log("line 19: note",newNote);
@@ -54,6 +58,15 @@ exports.noteUpdate = function(req, res, noteId){
             console.error("line 54: Notes Model",err.message);
         });
 };
+
+exports.noteDelete = function(req, res, noteId){
+        var noteId = req.params.id
+        console.log(noteId);
+        db.Note.findById(noteId)
+        .then(function(note){
+            note.destroy();
+        })
+}
 
 
 

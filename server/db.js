@@ -73,7 +73,7 @@ Note.belongsToMany(Category, {through: 'NotesCategories', foreignKey: 'noteId'})
 Category.belongsToMany(Note, {through: 'NotesCategories', foreignKey: 'catId'});
 
 sequelize.sync().then(function(){
-    console.log("created tables");
+    console.log("Created tables in db.js");
 })
 
 /// Exports to models

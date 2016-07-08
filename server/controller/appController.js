@@ -7,11 +7,7 @@ console.log("line 4: appController")
 module.exports = {
   'notes': {
     get: function(req, res){
-          console.log('Controller get notes');
-//          models.notes.get(function(data){
-//            res.json(data);
-//        });
-         helper.fetchNotes(req, res);
+        Notes.notesFetched(req,res)
     },
 
     post: function(req, res){
@@ -33,20 +29,8 @@ module.exports = {
     }
   },
   'notes/:id': {
-    get: function(req, res){
-      // req.body.id
-      // console.log('Controller  get notes');
-      // models.notes.get(function(data){
-      //   res.json(data);
-      // });
-    },
-    post: function(req, res){
-      // req.body.id
-      // console.log('Controller  get notes');
-      // models.notes.get(function(data){
-      //   res.json(data);
-      // });
-    },
+    get: function(req, res){},
+    post: function(req, res){},
     put: function(req, res){
 
         console.log("PUTS req.body", req.body)
@@ -56,16 +40,11 @@ module.exports = {
 
     },
     delete: function(req, res){
-      console.log("line 45 : appController")
-//      models.notes.delete(function(data){
-//        console.log(data, "req.body", req.body)
-//        res.send(data);
-//      }, req.body);
-//    }
-    console.log("req.body", req.body)
-    console.log("req.params", req.params)
+        console.log("line 59 : appController delete noteID")
 
-    helper.deleteNote(req ,res)
+        console.log("req.params", req.body.id)
+        var noteId = req.param.id
+        Notes.noteDelete(req ,res , noteId);
     }
 
   },
@@ -77,9 +56,7 @@ module.exports = {
      var newCat = {title: req.body.title,
                     description: req.body.description,
                    }
-
     Categories.categoryCreate(req, res, newCat)
-
     }
 
   },
@@ -93,7 +70,10 @@ module.exports = {
         var catId = req.params.id;
         Categories.categoryUpdate(req, res, catId)
     },
-    delete:function(req, res){},
+    delete:function(req, res){
+        Categories.categoryDelete(req ,res);
+
+    },
     post: function(req, res){}
   }
 
