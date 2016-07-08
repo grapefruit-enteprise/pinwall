@@ -1,6 +1,6 @@
 var helper = require('../helperFN/helpers.js')
-var db = require('../db.js')
-var Note = require("./note.js")
+var db     = require('../db.js')
+var Note   = require("./note.js")
 
 
 

@@ -1,8 +1,8 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var app = express();
-var routes = require('./routes/routes.js');
+var express        = require('express');
+var bodyParser     = require('body-parser');
+var morgan         = require('morgan');
+var app            = express();
+var routes         = require('./routes/routes.js');
 
 console.log("In server.js file")
 

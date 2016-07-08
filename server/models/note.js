@@ -15,8 +15,11 @@ exports.notesFetchedbyCat = function(req, res, catId){
             category.getNotes()
                 .then(function(notes){
                     console.log("All notes with that catId", JSON.stringify(notes, null ,4))
-                    res.send(notes);
+                    res.status(200).send(notes);
             })
+            .catch(function(err){
+                console.error(err.message);
+            });
         })
 }
 
@@ -28,6 +31,7 @@ exports.noteCreate = function(req, res, newNote, categories) {
            note.setCategories(categories, note.id)
                .then(function(note){
                     console.log("NotesCategories has been update !!");
+                    res.status(200).send(note)
                 });
         })
         .catch(function(err){

@@ -13,7 +13,12 @@ sequelize
 
 
 var Organization = sequelize.define('Organization', {
-      name       : Sequelize.STRING,
+      name       : {
+        type: Sequelize.STRING,
+          allowNull: false,
+          validate: {
+              notEmpty: true
+        },
       address    : Sequelize.STRING,
       city       : Sequelize.STRING,
       state      : Sequelize.STRING,
@@ -28,17 +33,31 @@ var Organization = sequelize.define('Organization', {
 });
 
 //
-//var User = sequelize.define('Note', {
-//      username  : Sequelize.STRING,
+//var User = sequelize.define('User', {
+//      username  : {
+//        type: Sequelize.STRING,
+//              allowNull: false,
+//              validate: {
+//                  notEmpty: true
+//            },
+//      firstname : Sequelize.STRING,
+//      lastname  : Sequelize.STRING,
 //      createdAt : Sequelize.DATE,
 //      updatedAt : Sequelize.DATE,
-//      email     :{
+//      email     : {
 //        type: Sequelize.STRING,
+//          allowNull: false,
 //          validate:{
-//              isEmail: true
+//              isEmail: true,
+//              notEmpty: true
 //          }
 //      },
-//      password  : Sequelize.STRING,
+//      password  : {
+//            type: Sequelize.STRING,
+//              allowNull: false,
+//              validate: {
+//                  notEmpty: true
+//            },
 //    },{
 //      tableName: 'Users', // this will define the table's name
 //      timestamps: true   // this will deactivate the timestamp columns
@@ -47,10 +66,20 @@ var Organization = sequelize.define('Organization', {
 
 
 var Note = sequelize.define('Note', {
-      title     : Sequelize.STRING,
+      title      : {
+        type: Sequelize.STRING,
+          allowNull: false;
+          validate: {
+              notEmpty: true
+        },
+      content   : {
+        type: Sequelize.TEXT,
+          allowNull: false,
+          validate:{
+              notEmpty: true
+        },
       createdAt : Sequelize.DATE,
       updatedAt : Sequelize.DATE,
-      content   : Sequelize.TEXT,
       img       : Sequelize.STRING,
     },{
       tableName : 'Notes', // this will define the table's name
@@ -59,7 +88,12 @@ var Note = sequelize.define('Note', {
 
 
 var Category = sequelize.define('Category', {
-      title      : Sequelize.STRING,
+      title      : {
+        type: Sequelize.STRING,
+          allowNull: false,
+          validate:{
+              notEmpty: true
+        },
       description: Sequelize.TEXT,
       createdAt  : Sequelize.DATE,
       updatedAt  : Sequelize.DATE,
@@ -72,6 +106,7 @@ var Category = sequelize.define('Category', {
 
 
 // Association - Relationships
+//Organization.hasMany(User,       {foreignKey: 'organizationId'});
 Organization.hasMany(Note,       {foreignKey: 'organizationId'});
 Organization.hasMany(Category,   {foreignKey: 'organizationId'});
 
@@ -81,6 +116,10 @@ Category.belongsToMany(Note, {through: 'NotesCategories', foreignKey: 'catId'});
 sequelize.sync().then(function(){
     console.log("Created tables in db.js");
 });
+// will drop the tables and init them
+//sequelize.sync({force:true}).then(function(){
+//    console.log("Created tables in db.js");
+//});
 
 /// Exports to models
 exports.Note         = Note;

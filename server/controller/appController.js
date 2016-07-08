@@ -13,14 +13,14 @@ module.exports = {
     },
     post: function(req, res){
         var newOrg = {
-                    name       : req.body.name,
-                    address    : req.body.address,
-                    city       : req.body.city,
-                    state      : req.body.state,
-                    phone      : req.body.phone,
-                    description: req.body.description,
-                    img        : req.body.img
-                   }
+            name       : req.body.name,
+            address    : req.body.address,
+            city       : req.body.city,
+            state      : req.body.state,
+            phone      : req.body.phone,
+            description: req.body.description,
+            img        : req.body.img
+        }
      // req.body.categories is an [] of category IDs
         Organizations.organizationCreate(req, res, newOrg)
     },
@@ -31,14 +31,14 @@ module.exports = {
     get: function(req, res){},
     put: function(req, res){
         var updatedOrg = {
-                    name       : req.body.name,
-                    address    : req.body.address,
-                    city       : req.body.city,
-                    state      : req.body.state,
-                    phone      : req.body.phone,
-                    description: req.body.description,
-                    img        : req.body.img
-                   }
+            name       : req.body.name,
+            address    : req.body.address,
+            city       : req.body.city,
+            state      : req.body.state,
+            phone      : req.body.phone,
+            description: req.body.description,
+            img        : req.body.img
+        }
 
         var orgId = req.params.id
     Organizations.organizationUpdate(req, res, updatedOrg, orgId)
