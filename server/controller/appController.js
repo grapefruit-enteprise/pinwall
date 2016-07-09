@@ -64,8 +64,9 @@ module.exports = {
         }
      // req.body.categories is an [] of category IDs
         var categories = req.body.categories;
+        var tags = req.body.tags.toLowerCase().split(" ");
 
-    Notes.noteCreate(req, res, newNote, categories)
+    Notes.noteCreate(req, res, newNote, categories, tags)
 
     },
     put: function(req, res){

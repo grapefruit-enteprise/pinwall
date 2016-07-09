@@ -11,6 +11,7 @@
   "author": "Marco Berardini, Chadd Bennett, Stephaine Velazquez, Joe Capezzuto",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.0.0-rc.6",
     "body-parser": "^1.15.2",
     "bower": "1.7.7",
     "express": "^4.14.0",

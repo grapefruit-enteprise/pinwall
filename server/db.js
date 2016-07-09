@@ -155,7 +155,7 @@ Tag.belongsToMany(Note, {through: 'NotesTags', foreignKey: 'tagId'});
 sequelize.sync().then(function(){
     console.log("Created tables in db.js");
 });
-//will drop the tables and init them
+// will drop the tables and init them
 //sequelize.sync({force:true}).then(function(){
 //    console.log("Created tables in db.js");
 //});
