@@ -61,9 +61,10 @@ exports.noteCreate = function(req, res, newNote, categories, tags) {
                     })
 
                 }) // note
-               .then(function(note){
-                    res.status(200).send(note)
-                })
+
+        })
+        .then(function(){
+            res.status(200).send("Note has been Created");
         })
         .catch(function(err){
             console.error(err.message);
@@ -71,7 +72,7 @@ exports.noteCreate = function(req, res, newNote, categories, tags) {
         });
 };
 
-exports.noteUpdate = function(req, res, updatedNote, noteId){
+exports.noteUpdate = function(req, res, updatedNote, noteId, tags){
 
     var categories = req.body.categories;
 
@@ -82,12 +83,33 @@ exports.noteUpdate = function(req, res, updatedNote, noteId){
             console.log("line 45: Notes model", JSON.stringify(result));
             console.log("line 46: arguments", result[1]);
             var note = result[1][0];
+            var tagArr = [];
             note.setCategories(categories, noteId)
                 .then(function(){
-                    console.log("Categories in Note "+ noteId + " are updated !!" )
-                    res.status(200).send("Note has been updated");
+                console.log("NotesCategories has been update !!: ", tags);
+//                console.log("the array of tags",tags);
+                    async.eachSeries(tags, function(tag, callback) {
+                        db.Tag.findOrCreate({
+                            where: {
+                                name: tag
+                            }
+                        })
+                        .then(function(result) {
+                            tagArr.push(result[0].dataValues.id);
+                            callback()
+                        })
+                        .then(function(){
+                            note.setTags(tagArr, note.id)
+                        })
+                    })
 
-            })
+                })
+        })
+        .then(function(data){
+        console.log(data)
+//            console.log("Categories in Note "+ noteId + " are updated !!" )
+            res.status(200).send("Note has been updated");
+
         })
         .catch(function (err) {
             console.error("line 73: Notes Model", err.message);
