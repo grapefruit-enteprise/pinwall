@@ -146,6 +146,8 @@ Organization.hasMany(User,       {foreignKey: 'organizationId'});
 Organization.hasMany(Note,       {foreignKey: 'organizationId'});
 Organization.hasMany(Category,   {foreignKey: 'organizationId'});
 
+User.hasMany(Note,         {foreignKey: 'userId'});
+
 Note.belongsToMany(Category, {through: 'NotesCategories', foreignKey: 'noteId'});
 Category.belongsToMany(Note, {through: 'NotesCategories', foreignKey: 'catId'});
 
