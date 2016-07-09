@@ -12,7 +12,6 @@ export default (
     <Route path="/wall" component={Wall} />
     <Route path="/:org/:category" component={Wall} />
     <Route path="/:org/:category/:noteId" component={Note} />
-
   </Route>
 </ Router>
 );

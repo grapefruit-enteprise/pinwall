@@ -1,17 +1,3 @@
-// var React = require('react');
-// var ReactDOM = require('react-dom');
-//
-// class Test extends React.Component {
-//   render(){
-//     return (
-//       <div> Test123 </div>
-//     )
-//   }
-// }
-//
-//
-// ReactDOM.render(<Test />, document.getElementById('app'));
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -33,9 +19,9 @@ import Note from './components/note.js';
 // </Provider>
 
 ReactDOM.render(
-  <Router history={hashHistory} >
+  <Router history={browserHistory} >
     <Route path="/" component={NavBar}>
-      <IndexRoute component={Login} />
+      <IndexRoute component={Wall} />
       <Route path="/wall" component={Wall} />
         <Route path="/wall/:category" component={Wall} />
         <Route path="/wall/:category/:noteId" component={Note} />
