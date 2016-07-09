@@ -1,3 +1,4 @@
+var bcrypt    = require('bcrypt');
 var db = require('../db.js');
 
 
@@ -68,6 +69,29 @@ exports.userDelete = function(req, res, userId){
 
         });
 };
+
+
+
+exports.userLogin = function(req, res, loginUser){
+
+    db.User.findOne({
+        where: {
+            email: loginUser.email
+        }})
+        .then(function(user){
+        console.log(user)
+            if(!user || !bcrypt.compareSync(loginUser.password, user.get('passwordHash'))){
+                return res.status(401).send();
+            }
+
+            res.status(200).send(user.toPublicJSON())
+        })
+        .catch(function(err){
+            res.status(500).send(err.message);
+        })
+
+
+}
 
 
 
