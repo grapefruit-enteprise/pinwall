@@ -1,4 +1,5 @@
-var db = require('../db.js');
+var db    = require('../db.js');
+var async = require('async');
 
 exports.notesFetched = function(req, res, orgId){
 
@@ -34,16 +35,35 @@ exports.notesFetchedbyCat = function(req, res, catId){
         })
 }
 
-exports.noteCreate = function(req, res, newNote, categories) {
-    console.log("line 19: note",newNote);
+exports.noteCreate = function(req, res, newNote, categories, tags) {
+//    console.log("line 19: note",newNote);
     db.Note.create(newNote)
         .then(function(note){
-        console.log("line 22: Note has been Created");
+        var noteRecord = note;
+        var tagArr     = [];
            note.setCategories(categories, note.id)
+               .then(function(NotesCategories){
+                console.log("NotesCategories has been update !!: ", tags);
+//                console.log("the array of tags",tags);
+                    async.eachSeries(tags, function(tag, callback) {
+                        db.Tag.findOrCreate({
+                            where: {
+                                name: tag
+                            }
+                        })
+                        .then(function(result) {
+                            tagArr.push(result[0].dataValues.id);
+                            callback()
+                        })
+                        .then(function(){
+                            noteRecord.setTags(tagArr, noteRecord.id)
+                        })
+                    })
+
+                }) // note
                .then(function(note){
-                    console.log("NotesCategories has been update !!");
                     res.status(200).send(note)
-                });
+                })
         })
         .catch(function(err){
             console.error(err.message);
