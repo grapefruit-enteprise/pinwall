@@ -35,6 +35,25 @@ exports.notesFetchedbyCat = function(req, res, catId){
         })
 }
 
+exports.notesFetchedbyUser = function(req ,res, orgId, userId){
+    db.Note.findAll({
+        where: {
+            userId          : userId,
+            organizationId  : orgId
+        }
+    })
+    .then(function(notes){
+        console.log("All notes with that catId", JSON.stringify(notes, null ,4))
+        res.status(200).send(notes);
+    })
+    .catch(function(err){
+        console.error(err.message);
+        res.status(500).send(err.message);
+    })
+
+}
+
+
 exports.noteCreate = function(req, res, newNote, categories, tags) {
 //    console.log("line 19: note",newNote);
     db.Note.create(newNote)
@@ -72,7 +91,7 @@ exports.noteCreate = function(req, res, newNote, categories, tags) {
         });
 };
 
-exports.noteUpdate = function(req, res, updatedNote, noteId, tags){
+exports.noteUpdate = function(req, res, updatedNote, noteId, categories, tags){
 
     var categories = req.body.categories;
 
@@ -84,7 +103,7 @@ exports.noteUpdate = function(req, res, updatedNote, noteId, tags){
             console.log("line 46: arguments", result[1]);
             var note = result[1][0];
             var tagArr = [];
-            note.setCategories(categories, noteId)
+            note.setCategories(categories, note.id)
                 .then(function(){
                 console.log("NotesCategories has been update !!: ", tags);
 //                console.log("the array of tags",tags);
@@ -135,6 +154,27 @@ exports.noteDelete = function(req, res, noteId){
         });
 }
 
+
+exports.noteDeleteByUser = function(req, res, noteId, orgId , userId){
+        var noteId = req.params.id
+        console.log(noteId);
+        db.Note.findById(noteId, {where:{
+            userId          : userId,
+            organizationId  : orgId
+        }})
+        .then(function(note){
+            note.destroy();
+            console.log("'" + note.title + "'" + " was removed from the database");
+            res.status(200).send( "'" + note.title + "'" + " was removed from the database");
+
+        })
+        .catch(function (err) {
+            console.error("line 89: Notes Model",err.message);
+            res.status(500).send(err.message)
+        });
+
+
+}
 
 
 

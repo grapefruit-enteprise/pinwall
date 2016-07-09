@@ -119,17 +119,17 @@ module.exports = {
         },
 
         post: function(req, res){
-            var newNote = {
-                title           : req.body.title,
-                img             : req.body.img,
-                content         : req.body.content,
-                organizationId  : req.params.orgId
-            }
-         // req.body.categories is an [] of category IDs
-            var categories = req.body.categories;
-            var tags = req.body.tags.toLowerCase().split(" ");
-
-        Notes.noteCreate(req, res, newNote, categories, tags)
+//            var newNote = {
+//                title           : req.body.title,
+//                img             : req.body.img,
+//                content         : req.body.content,
+//                organizationId  : req.params.orgId
+//            }
+//         // req.body.categories is an [] of category IDs
+//            var categories = req.body.categories;
+//            var tags = req.body.tags.toLowerCase().split(" ");
+//
+//        Notes.noteCreate(req, res, newNote, categories, tags)
         },
         put: function(req, res){},
         delete: function(req, res){}
@@ -138,16 +138,16 @@ module.exports = {
         get: function(req, res){},
         post: function(req, res){},
         put: function(req, res){
-            var updatedNote = {
-                title   : req.body.title,
-                img     : req.body.img,
-                content : req.body.content,
-            };
-            var tags = req.body.tags.toLowerCase().split(" ");
-            console.log("PUTS req.body", req.body)
-            console.log("PUTS req.params", req.params)
-            var noteId = req.params.id;
-            Notes.noteUpdate(req, res, updatedNote, noteId, tags)
+//            var updatedNote = {
+//                title   : req.body.title,
+//                img     : req.body.img,
+//                content : req.body.content,
+//            };
+//            var tags = req.body.tags.toLowerCase().split(" ");
+//            console.log("PUTS req.body", req.body)
+//            console.log("PUTS req.params", req.params)
+//            var noteId = req.params.id;
+//            Notes.noteUpdate(req, res, updatedNote, noteId, tags)
 
     },
         delete: function(req, res){
@@ -158,6 +158,65 @@ module.exports = {
             Notes.noteDelete(req, res, noteId);
         }
     },
+
+   /////////////////for users
+    'organizations/:orgId/users/:userId/notes': {
+        get: function(req, res){
+            var orgId = req.params.orgId
+            var userId = req.params.userId
+            Notes.notesFetchedbyUser(req ,res, orgId, userId)
+        },
+
+        post: function(req, res){
+            var newNote = {
+                title           : req.body.title,
+                img             : req.body.img,
+                content         : req.body.content,
+                organizationId  : req.params.orgId,
+                userId          : req.params.userId
+            }
+         // req.body.categories is an [] of category IDs
+            var categories = req.body.categories;
+            var tags = req.body.tags.toLowerCase().split(" ");
+
+        Notes.noteCreate(req, res, newNote, categories, tags)
+        },
+        put: function(req, res){},
+        delete: function(req, res){}
+    },
+    'organizations/:orgId/users/:userId/notes/:id': {
+        get: function(req, res){},
+        post: function(req, res){},
+        put: function(req, res){
+            var updatedNote = {
+                title           : req.body.title,
+                img             : req.body.img,
+                content         : req.body.content,
+                organizationId  : req.params.orgId,
+                userId          : req.params.userId
+            };
+            var tags = req.body.tags.toLowerCase().split(" ");
+            var categories = req.body.categories;
+
+            console.log("PUTS req.body", req.body)
+            console.log("PUTS req.params", req.params)
+            var noteId = req.params.id;
+            Notes.noteUpdate(req, res, updatedNote, noteId, categories, tags)
+
+    },
+        delete: function(req, res){
+            console.log("line 59 : appController delete noteID")
+
+            console.log("req.params", req.params.id)
+            var noteId = req.param.id;
+            var userId = req.param.id;
+            var orgId = req.param.id;
+            Notes.noteDeleteByUser(req, res, noteId, orgId , userId);
+        }
+    },
+
+
+
 //////////////////////////////////////////////////////////////////
 /////////////////        Categories         //////////////////////
 /////////////////////////////////////////////////////////////////
