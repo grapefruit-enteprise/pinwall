@@ -1,0 +1,22 @@
+{
+  "name": "client",
+  "authors": [
+    "Marco Berardini <mberardini@evolution-man.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+
+  }
+}
