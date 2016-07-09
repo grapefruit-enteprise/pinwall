@@ -1,4 +1,5 @@
 var models         = require('../models/appModel');
+var Users          = require('../models/user');
 var Notes          = require('../models/note');
 var Categories     = require('../models/category');
 var Organizations  = require('../models/organization');
@@ -7,6 +8,9 @@ var helper         = require('../helperFN/helpers.js');
 console.log("line 4: appController")
 
 module.exports = {
+//////////////////////////////////////////////////////////////////
+/////////////////       Organizations      //////////////////////
+/////////////////////////////////////////////////////////////////
 
     'organizations': {
         get: function(req, res){
@@ -49,6 +53,64 @@ module.exports = {
         Organizations.organizationDelete (req, res);
         }
     },
+//////////////////////////////////////////////////////////////////
+/////////////////         Users             //////////////////////
+/////////////////////////////////////////////////////////////////
+
+    'organizations/:orgId/users': {
+        get: function(req, res){
+            var orgId = req.params.orgId
+            Users.usersFetched(req ,res, orgId)
+        },
+        post: function(req, res){
+
+            var orgId = req.params.orgId
+            var newUser = {
+                username       : req.body.username,
+                firstname      : req.body.firstname,
+                lastname       : req.body.lastname,
+                email          : req.body.email,
+                password       : req.body.password,
+                organizationId : orgId
+            }
+         // req.body.categories is an [] of category IDs
+            Users.userCreate(req, res, newUser)
+        },
+
+        put: function(req, res){},
+        delete: function(req, res){}
+    },
+    'organizations/:orgId/users/:id': {
+        get: function(req, res){},
+        post: function(req, res){},
+        put: function(req, res){
+
+            var orgId = req.params.orgId
+            var updatedUser = {
+                username       : req.body.username,
+                firstname      : req.body.firstname,
+                lastname       : req.body.lastname,
+                email          : req.body.email,
+                password       : req.body.password,
+                organizationId : orgId
+            }
+
+            var paramId = req.params.id;
+            Users.userUpdate(req, res, updatedUser, paramId)
+
+    },
+        delete: function(req, res){
+            console.log("line 103 : appController delete userID")
+
+            console.log("req.params", req.params.id)
+            var userId = req.params.id
+            Users.userDelete(req, res, userId);
+        }
+    },
+
+//////////////////////////////////////////////////////////////////
+/////////////////              Notes        //////////////////////
+/////////////////////////////////////////////////////////////////
 
     'organizations/:orgId/notes': {
         get: function(req, res){
@@ -88,15 +150,18 @@ module.exports = {
             Notes.noteUpdate(req, res, updatedNote, noteId, tags)
 
     },
-    delete: function(req, res){
-        console.log("line 59 : appController delete noteID")
+        delete: function(req, res){
+            console.log("line 59 : appController delete noteID")
 
-        console.log("req.params", req.body.id)
-        var noteId = req.param.id
-        Notes.noteDelete(req, res, noteId);
-    }
-
+            console.log("req.params", req.body.id)
+            var noteId = req.param.id
+            Notes.noteDelete(req, res, noteId);
+        }
     },
+//////////////////////////////////////////////////////////////////
+/////////////////        Categories         //////////////////////
+/////////////////////////////////////////////////////////////////
+
     'organizations/:orgId/categories': {
         get:function(req, res){
             var orgId = req.params.orgId
@@ -130,13 +195,16 @@ module.exports = {
             var catId = req.params.id;
 
             Categories.categoryUpdate(req, res, updatedCat, catId)
-    },
-    delete:function(req, res){
-        Categories.categoryDelete(req, res);
-    },
-    post: function(req, res){}
-    },
+        },
+        delete:function(req, res){
+            Categories.categoryDelete(req, res);
+        },
+        post: function(req, res){}
+        },
 
+//////////////////////////////////////////////////////////////////
+/////////////////            Tags           //////////////////////
+/////////////////////////////////////////////////////////////////
     'organizations/:orgId/tags': {
         get:function(req, res){
             var tagId = req.params.id;

@@ -48,6 +48,8 @@ exports.categoryUpdate = function(req, res, updatedCat, paramId){
 
         });
 };
+
+
 exports.categoryDelete = function(req, res){
         var catId = req.params.id;
         console.log(catId);
