@@ -75,6 +75,48 @@ module.exports = {
         }
     },
 
+
+//////////////////////////////////////////////////////////////////
+/////////////////         LOGIN/ LOGOUT     //////////////////////
+//////////////////////////////////////////////////////////////////
+
+    'users/login': {
+        get: function(req, res){
+//            var orgId = req.params.orgId
+//            Users.usersFetched(req ,res, orgId)
+        },
+        post: function(req, res){
+            var loginUser = _.pick(req.body, 'email', 'password');
+            if(typeof loginUser.email !== 'string' || typeof loginUser.password  !== 'string') {
+                return res.status(500).send();
+            }
+            Users.userLogin(req, res, loginUser);
+
+        },
+
+        put: function(req, res){},
+        delete: function(req, res){}
+    },
+//    'organizations/:orgId/users/:id': {
+//        get: function(req, res){},
+//        post: function(req, res){},
+//        put: function(req, res){
+//            var updatedUser = _.pick(req.body, 'username', 'firstname',
+//                            'lastname', 'email', 'password');
+//            updatedUser.organizationId = req.params.orgId
+//            var paramId = req.params.id;
+//            Users.userUpdate(req, res, updatedUser, paramId)
+//
+//    },
+//        delete: function(req, res){
+//            console.log("line 103 : appController delete userID")
+//
+//            console.log("req.params", req.params.id)
+//            var userId = req.params.id
+//            Users.userDelete(req, res, userId);
+//        }
+//    },
+
 //////////////////////////////////////////////////////////////////
 /////////////////              Notes        //////////////////////
 //////////////////////////////////////////////////////////////////
@@ -123,6 +165,7 @@ module.exports = {
         },
 
         post: function(req, res){
+            console.log("line 168 ::: ", req.params)
             var newNote = {
                 title           : req.body.title,
                 img             : req.body.img,
