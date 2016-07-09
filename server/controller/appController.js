@@ -1,3 +1,4 @@
+var _              = require('lodash');
 var models         = require('../models/appModel');
 var Users          = require('../models/user');
 var Notes          = require('../models/note');
@@ -17,16 +18,7 @@ module.exports = {
             Organizations.organizationsFetched(req, res)
         },
         post: function(req, res){
-            var newOrg = {
-                name       : req.body.name,
-                address    : req.body.address,
-                city       : req.body.city,
-                state      : req.body.state,
-                phone      : req.body.phone,
-                description: req.body.description,
-                img        : req.body.img
-            }
-         // req.body.categories is an [] of category IDs
+            var newOrg  = _.pick(req.body, 'name', 'address', 'city', 'state', 'phone', 'decription', 'img')
             Organizations.organizationCreate(req, res, newOrg)
         },
         put: function(req, res){},
@@ -35,18 +27,9 @@ module.exports = {
     'organizations/:orgId': {
         get: function(req, res){},
         put: function(req, res){
-            var updatedOrg = {
-                name       : req.body.name,
-                address    : req.body.address,
-                city       : req.body.city,
-                state      : req.body.state,
-                phone      : req.body.phone,
-                description: req.body.description,
-                img        : req.body.img
-            }
-
+            var updatedOrg = _.pick(req.body, 'name', 'address', 'city',                    'state', 'phone', 'decription', 'img')
             var orgId = req.params.orgId
-        Organizations.organizationUpdate(req, res, updatedOrg, orgId)
+            Organizations.organizationUpdate(req, res, updatedOrg, orgId)
         },
         post: function(req, res){},
         delete: function(req, res){
@@ -55,7 +38,7 @@ module.exports = {
     },
 //////////////////////////////////////////////////////////////////
 /////////////////         Users             //////////////////////
-/////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
     'organizations/:orgId/users': {
         get: function(req, res){
@@ -63,17 +46,9 @@ module.exports = {
             Users.usersFetched(req ,res, orgId)
         },
         post: function(req, res){
-
-            var orgId = req.params.orgId
-            var newUser = {
-                username       : req.body.username,
-                firstname      : req.body.firstname,
-                lastname       : req.body.lastname,
-                email          : req.body.email,
-                password       : req.body.password,
-                organizationId : orgId
-            }
-         // req.body.categories is an [] of category IDs
+            var newUser = _.pick(req.body, 'username', 'firstname',
+                            'lastname', 'email', 'password');
+            newUser.organizationId = req.params.orgId
             Users.userCreate(req, res, newUser)
         },
 
@@ -84,17 +59,9 @@ module.exports = {
         get: function(req, res){},
         post: function(req, res){},
         put: function(req, res){
-
-            var orgId = req.params.orgId
-            var updatedUser = {
-                username       : req.body.username,
-                firstname      : req.body.firstname,
-                lastname       : req.body.lastname,
-                email          : req.body.email,
-                password       : req.body.password,
-                organizationId : orgId
-            }
-
+            var updatedUser = _.pick(req.body, 'username', 'firstname',
+                            'lastname', 'email', 'password');
+            updatedUser.organizationId = req.params.orgId
             var paramId = req.params.id;
             Users.userUpdate(req, res, updatedUser, paramId)
 
@@ -110,7 +77,7 @@ module.exports = {
 
 //////////////////////////////////////////////////////////////////
 /////////////////              Notes        //////////////////////
-/////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
     'organizations/:orgId/notes': {
         get: function(req, res){
@@ -118,19 +85,7 @@ module.exports = {
             Notes.notesFetched(req ,res, orgId)
         },
 
-        post: function(req, res){
-//            var newNote = {
-//                title           : req.body.title,
-//                img             : req.body.img,
-//                content         : req.body.content,
-//                organizationId  : req.params.orgId
-//            }
-//         // req.body.categories is an [] of category IDs
-//            var categories = req.body.categories;
-//            var tags = req.body.tags.toLowerCase().split(" ");
-//
-//        Notes.noteCreate(req, res, newNote, categories, tags)
-        },
+        post: function(req, res){},
         put: function(req, res){},
         delete: function(req, res){}
     },
@@ -138,16 +93,16 @@ module.exports = {
         get: function(req, res){},
         post: function(req, res){},
         put: function(req, res){
-//            var updatedNote = {
-//                title   : req.body.title,
-//                img     : req.body.img,
-//                content : req.body.content,
-//            };
-//            var tags = req.body.tags.toLowerCase().split(" ");
-//            console.log("PUTS req.body", req.body)
-//            console.log("PUTS req.params", req.params)
-//            var noteId = req.params.id;
-//            Notes.noteUpdate(req, res, updatedNote, noteId, tags)
+            var updatedNote = {
+                title   : req.body.title,
+                img     : req.body.img,
+                content : req.body.content,
+            };
+            var tags = req.body.tags.toLowerCase().split(" ");
+            console.log("PUTS req.body", req.body)
+            console.log("PUTS req.params", req.params)
+            var noteId = req.params.id;
+            Notes.noteUpdate(req, res, updatedNote, noteId, tags)
 
     },
         delete: function(req, res){
