@@ -26,7 +26,7 @@ exports.userCreate = function(req, res, newUser) {
     db.User.create(newUser)
         .then(function(user){
             console.log("line 7: User has been Created");
-            res.status(200).send(user);
+            res.status(200).send(user.toPublicJSON());
 
         })
         .catch(function(err){
