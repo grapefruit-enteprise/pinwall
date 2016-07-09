@@ -20,6 +20,7 @@ class NavBar extends Component {
         <form >
           <input type="text" className="form-control" value={this.state.term} onChange={this.onInputChange.bind(this)}/>
         </form>
+        {this.props.children}
       </div>
     )
   }

@@ -19,13 +19,26 @@ import { createStore, applyMiddleware } from 'redux';
 import routes from './config/routes';
 import ReduxPromise from 'redux-promise';
 
-import rootReducer from './reducers/root-reducer.js';
+import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
+import Login from './components/login.js';
+import NavBar from './components/navbar.js';
+import Wall from './components/wall.js';
+import Note from './components/note.js';
 
-const appStore = applyMiddleware(ReduxPromise)(createStore);
+//import reducers from './reducers';
 
+// const appStore = applyMiddleware(ReduxPromise)(createStore);
+// <Provider store={appStore(reducers)}>
+//
+// </Provider>
 
-ReactDOM.render((
-      <Provider store={appStore(rootReducer)}>
-        {routes}
-      </Provider>
-        ), document.getElementById('app'));
+ReactDOM.render(
+  <Router history={hashHistory} >
+    <Route path="/" component={NavBar}>
+      <IndexRoute component={Login} />
+      <Route path="/wall" component={Wall} />
+        <Route path="/wall/:category" component={Wall} />
+        <Route path="/wall/:category/:noteId" component={Note} />
+    </Route>
+  </ Router>
+    , document.getElementById('app'));
