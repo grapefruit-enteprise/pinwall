@@ -16,5 +16,6 @@ export default (
 </Router>
 );
 
+//When organization authorization is implemented, remove path /wall from line 12 and change wall to :org in line 14
 
 //{/*<IndexRoute component={Login} />*/}

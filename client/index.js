@@ -3,19 +3,20 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import routes from './config/routes';
-import ReduxPromise from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
 
-import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
-import Login from './components/login.js';
-import NavBar from './components/navbar.js';
-import Wall from './components/wall.js';
-import Note from './components/note.js';
+// import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
+// import Login from './components/login.js';
+// import NavBar from './components/navbar.js';
+// import Wall from './components/wall.js';
+// import Note from './components/note.js';
 
-import reducers from './reducers';
+import reducers from './reducers/root-reducer.js';
 
-const appStore = applyMiddleware(ReduxPromise)(createStore);
+const storeWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+const store = storeWithMiddleware(reducers);
 
-ReactDOM.render(<Provider store={appStore(reducers)}>{routes}</Provider>, document.getElementById('app'));
+ReactDOM.render(<Provider store={store}>{routes}</Provider>, document.getElementById('app'));
 
 
   // <Router history={browserHistory} >

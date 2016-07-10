@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 //take out axios when redux is implemented
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
+import { login } from '../actions/retrieve-notes-action.js'
+
+const orgId = 1;
 
 class Login extends Component {
   constructor(props) {
@@ -16,9 +21,7 @@ class Login extends Component {
 
   submitUserInfo(event) {
     event.preventDefault();
-    //switch out for action later
-    browserHistory.push('/wall');
-
+    this.props.login(orgId);
   }
 
   render() {
@@ -36,4 +39,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ login }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Login);
