@@ -21,7 +21,7 @@ export function login(organizationId) {
         dispatch({ type: NOTES, payload: response });
         //this might need to be its own then callback
         console.log('payload=', response);
-        browserHistory.push('/wall');
+        browserHistory.push(`/${organizationId}`);
         // change this route ^^^^^^ to /:org
       });
   }
@@ -36,7 +36,7 @@ export function retrieveNotes(organizationId, categoryId) {
     axios.get(url)
       .then(function(response) {
         dispatch({ type: NOTES, payload: response });
-        browserHistory.push('/wall');
+        browserHistory.push(`/${organizationId}`);
         // change this route ^^^^^^ to /:org
 
       })

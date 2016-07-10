@@ -14,7 +14,7 @@ class Wall extends Component {
 
   renderNotes() {
     return this.props.notes.map(note => {
-      let path = `/${note.id}`
+      let path = `/${note.organizationId}/${note.id}`
       return (
         <Link to={path} key={note.id}>
           <NotePreview title={note.title} date={note.createdAt} content={note.content}/>
