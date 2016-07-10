@@ -80,11 +80,21 @@ exports.userLogin = function(req, res, loginUser){
         }})
         .then(function(user){
         console.log(user)
-            if(!user || !bcrypt.compareSync(loginUser.password, user.get('passwordHash'))){
+            if(!user || !bcrypt.compareSync(loginUser.password,     user.get('passwordHash'))){
                 return res.status(401).send();
             }
 
-            res.status(200).send(user.toPublicJSON())
+            var token = user.generateToken('authentication');
+        if(token){
+            res.status(200)
+                .header('Auth', token)
+                .send(user.toPublicJSON())
+        }
+        else
+        {
+            res.status(401).send();
+        }
+
         })
         .catch(function(err){
             res.status(500).send(err.message);
