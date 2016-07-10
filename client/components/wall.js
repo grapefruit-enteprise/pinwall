@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NotePreview from './note-preview.js';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import Dummy from '../dummy_data.js';
+// import Dummy from '../dummy_data.js';
 
 class Wall extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Wall extends Component {
 
   renderNotes() {
     return this.state.notes.map(note => {
-      let path = `/wall/${note.id}`
+      let path = `//${note.id}`
       return (
         <Link to={path} key={note.id}><NotePreview title={note.title} date={note.createdAt} content={note.content}/></Link>
       )
@@ -37,4 +37,4 @@ function mapStateToProps(state) {
   )
 }
 
-export default Wall;
+export default connect(mapStateToProps)(Wall);

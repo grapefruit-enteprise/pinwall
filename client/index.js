@@ -11,14 +11,11 @@ import NavBar from './components/navbar.js';
 import Wall from './components/wall.js';
 import Note from './components/note.js';
 
-//import reducers from './reducers';
+import reducers from './reducers';
 
-// const appStore = applyMiddleware(ReduxPromise)(createStore);
-// <Provider store={appStore(reducers)}>
-//
-// </Provider>
+const appStore = applyMiddleware(ReduxPromise)(createStore);
 
-ReactDOM.render(routes, document.getElementById('app'));
+ReactDOM.render(<Provider store={appStore(reducers)}>{routes}</Provider>, document.getElementById('app'));
 
 
   // <Router history={browserHistory} >
