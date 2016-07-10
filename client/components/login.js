@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //take out axios when redux is implemented
 import axios from 'axios';
+import { browserHistory } from 'react-router';
 
 class Login extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Login extends Component {
   submitUserInfo(event) {
     event.preventDefault();
     //switch out for action later
-    axios.post()
+    browserHistory.push('/wall');
 
   }
 

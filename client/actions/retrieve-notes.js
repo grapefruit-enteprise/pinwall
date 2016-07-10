@@ -1,12 +1,12 @@
-import axios from 'axios';
+// import axios from 'axios';
 
-const 
+// // const 
 
-export const NOTES = 'NOTES';
+// export const NOTES = 'NOTES';
 
-export function retrieveNotes(book) {
-  return {
-    type: NOTES,
-    payload: axios.get(notes);
-  };
-}
+// export function retrieveNotes(book) {
+//   return {
+//     type: NOTES,
+//     payload: axios.get(notes);
+//   };
+// }
