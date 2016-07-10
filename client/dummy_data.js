@@ -17,7 +17,7 @@ export default [
 		'createdAt': '07/07/2016',
 		'updatedAt':'07/09/2016',
 		'img': '',
-		'organizationId': 2,
+		'organizationId': 1,
 		'userId': 1
 	},
 
@@ -39,7 +39,7 @@ export default [
 		'createdAt': '07/05/2016',
 		'updatedAt': '07/09/2016',
 		'img': '',
-		'organizationId': 3,
+		'organizationId': 1,
 		'userId': 1
 	}
 ]

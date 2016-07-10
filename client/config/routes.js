@@ -6,12 +6,12 @@ import Wall from '../components/wall.js';
 import Note from '../components/note.js';
 
 export default (
-<Router history={hashHistory} >
+<Router history={browserHistory} >
   <Route path="/" component={NavBar}>
-    <IndexRoute component={Login} />
+    <IndexRoute component={Wall} />
     <Route path="/wall" component={Wall} />
     <Route path="/:org/" component={Wall} />
-    <Route path="/:org/:noteId" component={Note} />
+    <Route path="/wall/:noteId" component={Note} />
   </Route>
 </Router>
 );

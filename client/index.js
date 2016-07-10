@@ -18,13 +18,14 @@ import Note from './components/note.js';
 //
 // </Provider>
 
-ReactDOM.render(
-  <Router history={browserHistory} >
-    <Route path="/" component={NavBar}>
-      <IndexRoute component={Wall} />
-      <Route path="/wall" component={Wall} />
-        <Route path="/wall/:category" component={Wall} />
-        <Route path="/wall/:category/:noteId" component={Note} />
-    </Route>
-  </ Router>
-    , document.getElementById('app'));
+ReactDOM.render(routes, document.getElementById('app'));
+
+
+  // <Router history={browserHistory} >
+  //   <Route path="/" component={NavBar}>
+  //     <IndexRoute component={Wall} />
+  //     <Route path="/wall" component={Wall} />
+  //       <Route path="/wall/:category" component={Wall} />
+  //       <Route path="/wall/:category/:noteId" component={Note} />
+  //   </Route>
+  // </ Router>

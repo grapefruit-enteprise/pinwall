@@ -14,13 +14,13 @@ class Wall extends Component {
 
   renderNotes() {
     return this.state.notes.map(note => {
-      let path = `/${note.organizationId}/${note.id}`
+      let path = `/wall/${note.id}`
       return (
         <Link to={path}><NotePreview title={note.title} date={note.createdAt} key={note.id} content={note.content}/></Link>
       )
     })
   }
-//cont={note.content} 
+
   render() {
     return(
       <div id="notes">

@@ -23,7 +23,7 @@ class Login extends Component {
   render() {
     return(
       <div>
-        <form class="form-inline" onSubmit={this.submitUserInfo.bind(this)}>
+        <form className="form-inline" onSubmit={this.submitUserInfo.bind(this)}>
           <label for="username">Username</label>
           <input id="username" placeholder="username"/>
           <label for="password">Password</label>
