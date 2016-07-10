@@ -25,9 +25,9 @@ class Login extends Component {
     return(
       <div>
         <form className="form-inline" onSubmit={this.submitUserInfo.bind(this)}>
-          <label for="username">Username</label>
+          <label htmlFor="username">Username</label>
           <input id="username" placeholder="username"/>
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input id="password" placeholder="password"/>
           <button className="btn btn-success">Submit</button>
         </form>

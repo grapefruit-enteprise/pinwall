@@ -16,7 +16,7 @@ class Wall extends Component {
     return this.state.notes.map(note => {
       let path = `/wall/${note.id}`
       return (
-        <Link to={path}><NotePreview title={note.title} date={note.createdAt} key={note.id} content={note.content}/></Link>
+        <Link to={path} key={note.id}><NotePreview title={note.title} date={note.createdAt} content={note.content}/></Link>
       )
     })
   }

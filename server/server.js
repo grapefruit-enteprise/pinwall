@@ -10,7 +10,8 @@ app.use(bodyParser.json());
 
 app.set('port', process.env.PORT ||  8080);
 app.use(morgan('dev'));
-app.use(express.static(__dirname + '/../client'));
+// app.use(express.static(__dirname + '/../client'));
+app.use(express.static('./'));
 app.use('/api', routes);
 app.use(function(req, res) {
  res.send('404: Page not Found', 404);
