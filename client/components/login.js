@@ -18,21 +18,31 @@ class Login extends Component {
     }
   }
 
-  // onInputChange
+  onInputChange(event) {
+    let key = event.target.id;
+    this.setState({
+      [key]: event.target.value
+    });
+    console.log('state=', this.state);
+  }
 
   submitUserInfo(event) {
     event.preventDefault();
-    this.props.login(orgId);
+    this.props.login(this.state.organization, this.state.user, this.state.password);
   }
+
+  //organization field is temporary and will use same reducers as username
 
   render() {
     return(
       <div>
         <form className="form-inline" onSubmit={this.submitUserInfo.bind(this)}>
           <label htmlFor="username">Username</label>
-          <input id="username" placeholder="username"/>
+          <input id="username" placeholder="username" onChange={this.onInputChange.bind(this)}/>
           <label htmlFor="password">Password</label>
-          <input id="password" placeholder="password"/>
+          <input id="password" placeholder="password" onChange={this.onInputChange.bind(this)}/>
+          <label htmlFor="organization">Organization</label>
+          <input id="organization" placeholder="Enter org. ID" onChange={this.onInputChange.bind(this)} />
           <button className="btn btn-success">Submit</button>
         </form>
       </div>

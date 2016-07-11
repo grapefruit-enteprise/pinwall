@@ -7,8 +7,9 @@ import Note from '../components/note.js';
 
 export default (
 <Router history={browserHistory} >
-  <Route path="/" component={NavBar}>
-    <IndexRoute component={Login} />
+  <Route path="/" component={Login} />
+  <Route path="/:org" component={NavBar}>
+    <IndexRoute component={Wall} />
     <Route path="/:org" component={Wall} />
     <Route path="/:org/read/:noteId" component={Note} />
     <Route path="/:org/write" component={Note} /> //placeholder
