@@ -1,3 +1,4 @@
+var db             = require('../db.js');
 var _              = require('lodash');
 var models         = require('../models/appModel');
 var Users          = require('../models/user');
@@ -6,6 +7,7 @@ var Categories     = require('../models/category');
 var Organizations  = require('../models/organization');
 var Tags           = require('../models/tag');
 var helper         = require('../helperFN/helpers.js');
+
 console.log("line 4: appController")
 
 module.exports = {
@@ -67,14 +69,14 @@ module.exports = {
         put: function(req, res){},
         delete: function(req, res){}
     },
-    'organizations/:orgId/users/:id': {
+    'organizations/:orgId/users/:userId': {
         get: function(req, res){},
         post: function(req, res){},
         put: function(req, res){
             var updatedUser = _.pick(req.body, 'username', 'firstname',
                             'lastname', 'email', 'password');
             updatedUser.organizationId = req.params.orgId
-            var paramId = req.params.id;
+            var paramId = req.params.userId;
             Users.userUpdate(req, res, updatedUser, paramId)
 
     },
