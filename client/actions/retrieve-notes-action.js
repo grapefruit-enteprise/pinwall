@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 
 export const NOTES = 'NOTES';
 
-export function login(organizationId) {
+export function login(user, pass, organizationId) {
   return function(dispatch) {
     let url = `api/organizations/${organizationId}/notes`;
     axios.get(url)
@@ -27,4 +27,8 @@ export function retrieveNotes(organizationId, categoryId) {
 
       })
   }
+}
+
+export function signup(formObj) {
+  console.log('signup', formObj);
 }
