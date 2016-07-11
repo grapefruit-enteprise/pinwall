@@ -1,5 +1,7 @@
 var bcrypt    = require('bcrypt');
-var _         = require('lodash')
+var _         = require('lodash');
+var cryptojs  = require('crypto-js');
+var jwt       = require('jsonwebtoken');
 var Sequelize = require('sequelize');
 
 var sequelize = new Sequelize('postgres://admin:MSTTGVCHDZJPXQPV@aws-us-east-1-portal.12.dblayer.com:10825/compose');
@@ -88,10 +90,29 @@ var User = sequelize.define('User', {
             }
         }
     },
-    instanceMethods:{
+    instanceMethods: {
         toPublicJSON: function(){
             var json = this.toJSON();
             return _.pick(json, 'id', 'username', 'firstname', 'lastname', 'email', 'createdAt', 'updatedAt');
+        },
+        generateToken: function(type){
+            if(!_.isString(type)){
+                return undefined;
+            }
+            try {
+                var stringData   = JSON.stringify({
+                    id  : this.get('id'),
+                    type: type
+                });
+                var encrytedData = cryptojs.AES.encrypt(stringData, 'abc123!@#!').toString();
+                var token        = jwt.sign({
+                    token: encrytedData
+                }, 'qwtu789');
+
+                return token;
+            } catch(err){
+                return undefined;
+            }
         }
     }
 });
