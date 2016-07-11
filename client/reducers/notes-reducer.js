@@ -2,9 +2,7 @@ import { NOTES } from '../actions/retrieve-notes-action.js';
 
 function notesReducer(state = null, action) {
   switch(action.type) {
-    case NOTES: return action.payload
-    //never mutate the state inside this function....that's
-    //why we use action.payload instead
+    case NOTES: return action.payload;
   }
   return state;
 }

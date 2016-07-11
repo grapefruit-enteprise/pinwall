@@ -9,9 +9,10 @@ export default (
 <Router history={browserHistory} >
   <Route path="/" component={NavBar}>
     <IndexRoute component={Login} />
-    <Route path="/wall" component={Wall} />
-    <Route path="/:org/" component={Wall} />
-    <Route path="/wall/:noteId" component={Note} />
+    <Route path="/:org" component={Wall} />
+    <Route path="/:org/read/:noteId" component={Note} />
+    <Route path="/:org/write" component={Note} /> //placeholder
+    <Route path="/:org/edit/:noteId" component={Note} /> //placeholder
   </Route>
 </Router>
 );
@@ -19,3 +20,4 @@ export default (
 //When organization authorization is implemented, remove path /wall from line 12 and change wall to :org in line 14
 
 //{/*<IndexRoute component={Login} />*/}
+// <Route path="/wall" component={Wall} />

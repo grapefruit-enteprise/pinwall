@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect} from 'react-redux';
 
 class Note extends Component {
   constructor(props) {
@@ -7,13 +8,17 @@ class Note extends Component {
   }
 
   render() {
+    if (!this.props.currentNote) {
+      return <div>Loading...</div>
+    }
+    let current = this.props.currentNote;
     return(
       <div id="note_show">
         <div className="title">
-          <h1>Title</h1>
+          <h1>{this.props.currentNote.title}</h1>
         </div>
         <div className="content">
-          <p>Text</p>
+          <p>{this.props.currentNote.content}</p>
         </div>
 
       </div>
@@ -21,4 +26,8 @@ class Note extends Component {
   }
 }
 
-export default Note;
+function mapStateToProps(state) {
+  return {currentNote: state.currentNote};
+}
+
+export default connect(mapStateToProps)(Note);
