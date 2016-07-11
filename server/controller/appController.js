@@ -40,6 +40,18 @@ module.exports = {
 /////////////////         Users             //////////////////////
 //////////////////////////////////////////////////////////////////
 
+    'user/:userId/organizations': {
+        get: function(req, res){
+            var userId = req.params.userId;
+            Users.userOrganizationFetched(req, res, userId);
+        },
+        post: function(req, res){},
+        put: function(req, res){},
+        delete: function(req, res){}
+    },
+
+
+
     'organizations/:orgId/users': {
         get: function(req, res){
             var orgId = req.params.orgId
@@ -155,7 +167,10 @@ module.exports = {
         }
     },
 
-   /////////////////for users
+//////////////////////////////////////////////////////////////////
+/////////////////       Notes by User       //////////////////////
+//////////////////////////////////////////////////////////////////
+
     'organizations/:orgId/users/:userId/notes': {
         get: function(req, res){
             var orgId = req.params.orgId

@@ -20,13 +20,34 @@ exports.usersFetched = function(req, res, orgId){
     });
 }
 
+exports.userOrganizationFetched = function(req, res, userId){
+
+    db.User.findById(userId)
+        .then(function(user){
+        db.Organization.findAll({ where: { id: user.organizationId }})
+            .then(function(organizations){
+                console.log("All organizations ", JSON.stringify(organizations, null ,4));
+                res.status(200).send(organizations);
+        })
+        .catch(function (err) {
+                console.error("line 13: Note  Model", err.message);
+                res.status(500).send(err.message);
+
+        });
+    }).catch(function(err){
+        res.status(500).send(err.message);
+    });
+}
+
 
 
 exports.userCreate = function(req, res, newUser) {
     console.log("line 25: creat user", newUser);
+    var orgId = newUser.organizationId
     db.User.create(newUser)
         .then(function(user){
             console.log("line 7: User has been Created");
+            user.organizationId = orgId;
             var token = user.generateToken('authentication');
             console.log("res.header Value :::", res.header)
             if(token){
@@ -115,6 +136,8 @@ exports.userLogin = function(req, res, loginUser){
 
 
 }
+
+
 
 
 
