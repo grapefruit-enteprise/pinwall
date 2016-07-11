@@ -82,8 +82,8 @@ exports.noteCreate = function(req, res, newNote, categories, tags) {
                 }) // note
 
         })
-        .then(function(){
-            res.status(200).send("Note has been Created");
+        .then(function(note){
+            res.status(200).send("Note has been Created " + note);
         })
         .catch(function(err){
             console.error(err.message);
