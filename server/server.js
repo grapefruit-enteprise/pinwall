@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var morgan     = require('morgan');
 var app        = express();
 var routes     = require('./routes/routes.js');
+var middleware = require('./config/middleware.js')
 
 console.log("In server.js file")
 

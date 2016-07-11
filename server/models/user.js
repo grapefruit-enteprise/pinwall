@@ -23,11 +23,22 @@ exports.usersFetched = function(req, res, orgId){
 
 
 exports.userCreate = function(req, res, newUser) {
-    console.log("line 4: note", newUser);
+    console.log("line 25: creat user", newUser);
     db.User.create(newUser)
         .then(function(user){
             console.log("line 7: User has been Created");
-            res.status(200).send(user.toPublicJSON());
+            var token = user.generateToken('authentication');
+            console.log("res.header Value :::", res.header)
+            if(token){
+                res.status(200)
+                    .header('Auth', token)
+                    .header('currentUser', user.id)
+                    .send(user.toPublicJSON())
+            }
+            else
+            {
+                res.status(401).send();
+            }
 
         })
         .catch(function(err){
@@ -85,9 +96,11 @@ exports.userLogin = function(req, res, loginUser){
             }
 
             var token = user.generateToken('authentication');
+        console.log("res.header Value :::", res.header)
         if(token){
             res.status(200)
                 .header('Auth', token)
+                .header('currentUser', user.id)
                 .send(user.toPublicJSON())
         }
         else
