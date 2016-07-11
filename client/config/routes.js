@@ -4,10 +4,11 @@ import Login from '../components/login.js';
 import NavBar from '../components/navbar.js';
 import Wall from '../components/wall.js';
 import Note from '../components/note.js';
+import LandingPage from '../components/landing-page.js';
 
 export default (
 <Router history={browserHistory} >
-  <Route path="/" component={Login} />
+  <Route path="/" component={LandingPage} />
   <Route path="/:org" component={NavBar}>
     <IndexRoute component={Wall} />
     <Route path="/:org" component={Wall} />
