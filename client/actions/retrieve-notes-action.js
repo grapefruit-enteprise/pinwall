@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 export const NOTES = 'NOTES';
 
 export function login(user, pass, organizationId) {
+  console.log('in login', organizationId);
   return function(dispatch) {
     let url = `api/organizations/${organizationId}/notes`;
     axios.get(url)
