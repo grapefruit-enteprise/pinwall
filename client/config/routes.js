@@ -10,7 +10,9 @@ export default (
   <Route path="/" component={NavBar}>
     <IndexRoute component={Login} />
     <Route path="/:org" component={Wall} />
-    <Route path="/:org/:noteId" component={Note} />
+    <Route path="/:org/read/:noteId" component={Note} />
+    <Route path="/:org/write" component={Note} /> //placeholder
+    <Route path="/:org/edit/:noteId" component={Note} /> //placeholder
   </Route>
 </Router>
 );
