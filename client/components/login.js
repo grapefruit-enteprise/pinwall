@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { login } from '../actions/login-action.js';
 import { Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
+import OrgModal from './org-modal.js';
 
 const orgId = 1;
 
@@ -31,10 +32,21 @@ class Login extends Component {
     event.preventDefault();
     return new Promise((resolve, reject) => {
       this.props.login(this.state.email, this.state.password, this.state.organization);
+      resolve();
     })
-    .then(function() {
-      this.setState({showModal: true});
+    .then(() => {
+      console.log("after submitUserInfo");
+      this.displayModal();
     });
+  }
+
+  displayModal() {
+    this.setState({showModal: true});
+    console.log(this.state.showModal);
+  }
+
+  hideModal() {
+    this.setState({showModal: false});
   }
 
   //organization field is temporary and will use same reducers as username
@@ -69,7 +81,10 @@ class Login extends Component {
           </FormGroup>
           <Button bsStyle="success" type="submit">Submit</Button>
         </Form>
-
+        <OrgModal
+          show={this.state.showModal}
+          hideModal={this.hideModal.bind(this)}
+        />
       </div>
     )
   }
