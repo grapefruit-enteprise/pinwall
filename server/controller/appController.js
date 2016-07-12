@@ -101,6 +101,8 @@ module.exports = {
         },
         post: function(req, res){
             var loginUser = _.pick(req.body, 'email', 'password');
+            console.log('req.body', req.body);
+            console.log('loginUser', loginUser);
             if(typeof loginUser.email !== 'string' || typeof loginUser.password  !== 'string') {
                 return res.status(500).send();
             }
@@ -314,23 +316,3 @@ module.exports = {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

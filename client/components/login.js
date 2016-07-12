@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import { login } from '../actions/retrieve-notes-action.js';
+import { login } from '../actions/login-action.js';
 import { Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 const orgId = 1;
@@ -13,9 +13,10 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
       password: '',
-      organization: ''
+      organization: '',
+      showModal: false
     }
   }
 
@@ -24,13 +25,16 @@ class Login extends Component {
     this.setState({
       [key]: event.target.value
     });
-    console.log('state=', this.state);
   }
 
   submitUserInfo(event) {
     event.preventDefault();
-    console.log('Inside submitUserInfo', 'user:', this.state.username, 'pass', this.state.password, 'org', this.state.organization)
-    this.props.login(this.state.username, this.state.password, this.state.organization);
+    return new Promise((resolve, reject) => {
+      this.props.login(this.state.email, this.state.password, this.state.organization);
+    })
+    .then(function() {
+      this.setState({showModal: true});
+    });
   }
 
   //organization field is temporary and will use same reducers as username
@@ -39,11 +43,11 @@ class Login extends Component {
     return(
       <div>
         <Form onSubmit={this.submitUserInfo.bind(this)}>
-          <FormGroup controlId="username">
-            <ControlLabel>Username</ControlLabel>
+          <FormGroup controlId="email">
+            <ControlLabel>Email Address</ControlLabel>
             <FormControl
               type="text"
-              placeholder="Enter User"
+              placeholder="Enter email"
               onChange={this.onInputChange.bind(this)}
               value={this.state.username} />
           </FormGroup>
@@ -51,7 +55,7 @@ class Login extends Component {
             <ControlLabel>Password</ControlLabel>
             <FormControl
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter password"
               onChange={this.onInputChange.bind(this)}
               value={this.state.password} />
           </FormGroup>
@@ -65,6 +69,7 @@ class Login extends Component {
           </FormGroup>
           <Button bsStyle="success" type="submit">Submit</Button>
         </Form>
+
       </div>
     )
   }

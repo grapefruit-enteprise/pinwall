@@ -18,10 +18,9 @@ class SignUp extends Component {
     this.setState({
       [key]: event.target.value
     });
-    console.log('state=', this.state);
   }
 
-  submitUserInfo(event) {
+  submitNewUser(event) {
     event.preventDefault();
     //this.props.login(this.state.organization, this.state.user, this.state.password);
   }
@@ -36,7 +35,7 @@ class SignUp extends Component {
 
   render() {
     return(
-      <Form>
+      <Form onSubmit={this.submitNewUser.bind(this)}>
         <FormGroup controlId="username">
         <ControlLabel>User Name</ControlLabel>
         <FormControl
@@ -102,6 +101,8 @@ class SignUp extends Component {
 }
 
 export default SignUp;
+
+//For now, organizationId is the field, but maybe we can enter a text field to map to an org later
 
 //    "username"       : "barry123",
 //    "firstname"      : "barry",
