@@ -10,7 +10,7 @@ export function retrieveCategories(organizationId) {
       console.log('going to fetch data......');
       axios.get(url).then(function(response) {
         console.log('payload in retrieveCategories...', response);
-        dispatch( {type:CATEGORIES, payload: response} );
+        dispatch( {type:CATEGORIES, payload: response.data} );
       });
     }
 }

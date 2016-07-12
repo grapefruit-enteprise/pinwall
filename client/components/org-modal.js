@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import { Modal, Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { retrieveNotes } from '../actions/retrieve-notes-action.js';
 import { retrieveCategories } from '../actions/retrieve-categories-action.js';
+import { selectCurrentOrg } from '../actions/login-action.js';
 
 class OrgModal extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class OrgModal extends Component {
     event.preventDefault();
     return new Promise((resolve, reject) => {
       this.props.retrieveNotes(orgId);
+      this.props.selectCurrentOrg(orgId);
       console.log('Inside first part of promise...');
       resolve(orgId);
     })
@@ -73,7 +75,7 @@ function mapPropsToState(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({retrieveNotes: retrieveNotes, retrieveCategories: retrieveCategories}, dispatch)
+  return bindActionCreators({retrieveNotes: retrieveNotes, retrieveCategories: retrieveCategories, selectCurrentOrg: selectCurrentOrg}, dispatch)
 }
 
 export default connect(mapPropsToState, mapDispatchToProps)(OrgModal);
