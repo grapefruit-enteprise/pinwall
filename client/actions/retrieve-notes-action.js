@@ -1,35 +1,17 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import { CATEGORIES, retrieveCategories } from './retrieve-categories-action.js';
 
 export const NOTES = 'NOTES';
 
-export function login(user, pass, organizationId) {
-  console.log('in login', organizationId);
-  return function(dispatch) {
-    let url = `api/organizations/${organizationId}/notes`;
-    axios.get(url)
-      .then(function(response) {
-        dispatch({ type: NOTES, payload: response });
-        console.log('payload in login=', response);
-        browserHistory.push(`/${organizationId}`);
-      });
-  }
-}
-
 export function retrieveNotes(organizationId, categoryId) {
   let url = `api/organizations/${organizationId}`;
+  url = categoryId ? url + `categories/${categoryId}` : url + '/notes';
   return function(dispatch) {
-    url = categoryId ? url + `categories/${categoryId}` : url + '/notes';
     axios.get(url)
-      .then(function(response) {
-        dispatch({ type: NOTES, payload: response });
-        console.log('payload in retrieveNotes=', response);
-        browserHistory.push(`/${organizationId}`);
-
-      })
+    .then(function(response) {
+      console.log('payload in retrieveNotes=', response);
+      dispatch({ type: NOTES, payload: response.data });
+    })
   }
-}
-
-export function signup(formObj) {
-  console.log('signup', formObj);
 }
