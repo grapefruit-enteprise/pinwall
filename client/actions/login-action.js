@@ -21,8 +21,7 @@ export const ORGS = 'ORGS';
 
 //first get organization options, then get messages, then get categories
 //for now, just get categories
-export function login(email, password, organizationId) {
-  console.log('in login', organizationId);
+export function login(email, password) {
   return function(dispatch) {
     let url = 'api/users/login';
     axios.post(url, {
@@ -39,18 +38,14 @@ export function login(email, password, organizationId) {
         email    : response.data.email,
         auth     : response.headers.auth,
         orgs     : []
-      }
+      };
       dispatch({type: USER_INFO, payload: user_data});
       let userId = response.data.id;
       return axios.get(`api/user/${userId}/organizations`);
-      // dispatch({ type: NOTES, payload: response });
-      // console.log('payload in login=', response);
-      // browserHistory.push(`/${organizationId}`);
     })
     .then(function(response) {
       dispatch({type: ORGS, payload: response.data})
       console.log('response from GET organizations by user:', response);
-
     });
   }
 }

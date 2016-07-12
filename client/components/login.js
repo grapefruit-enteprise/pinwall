@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-//take out axios when redux is implemented
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
-import { login } from '../actions/login-action.js';
 import { Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { login } from '../actions/login-action.js';
 import OrgModal from './org-modal.js';
-
-const orgId = 1;
 
 class Login extends Component {
   constructor(props) {
@@ -16,7 +11,6 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      organization: '',
       showModal: false
     }
   }
@@ -31,25 +25,21 @@ class Login extends Component {
   submitUserInfo(event) {
     event.preventDefault();
     return new Promise((resolve, reject) => {
-      this.props.login(this.state.email, this.state.password, this.state.organization);
+      this.props.login(this.state.email, this.state.password);
       resolve();
     })
     .then(() => {
-      console.log("after submitUserInfo");
       this.displayModal();
     });
   }
 
   displayModal() {
     this.setState({showModal: true});
-    console.log(this.state.showModal);
   }
 
   hideModal() {
     this.setState({showModal: false});
   }
-
-  //organization field is temporary and will use same reducers as username
 
   render() {
     return(
@@ -70,14 +60,6 @@ class Login extends Component {
               placeholder="Enter password"
               onChange={this.onInputChange.bind(this)}
               value={this.state.password} />
-          </FormGroup>
-          <FormGroup controlId="organization">
-            <ControlLabel>Organization</ControlLabel>
-            <FormControl
-              type="text"
-              placeholder="Enter org. ID"
-              onChange={this.onInputChange.bind(this)}
-              value={this.state.organization} />
           </FormGroup>
           <Button bsStyle="success" type="submit">Submit</Button>
         </Form>

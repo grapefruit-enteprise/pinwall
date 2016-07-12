@@ -36,6 +36,7 @@ class SignUp extends Component {
   render() {
     return(
       <Form onSubmit={this.submitNewUser.bind(this)}>
+
         <FormGroup controlId="username">
         <ControlLabel>User Name</ControlLabel>
         <FormControl
@@ -44,38 +45,43 @@ class SignUp extends Component {
           onChange={this.onInputChange.bind(this)}
           value={this.state.username}/>
         </FormGroup>
+
         <FormGroup controlId="firstname">
         <ControlLabel>First Name</ControlLabel>
         <FormControl
           type="text"
           placeholder="Enter name"
           onChange={this.onInputChange.bind(this)}
-          value={this.state.username}/>
+          value={this.state.firstname}/>
         </FormGroup>
+
         <FormGroup controlId="lastname">
         <ControlLabel>Last Name</ControlLabel>
         <FormControl
           type="text"
           placeholder="Enter name"
           onChange={this.onInputChange.bind(this)}
-          value={this.state.username}/>
+          value={this.state.lastname}/>
         </FormGroup>
-        <FormGroup controlId="email">
+
+        <FormGroup controlId="new_email">
         <ControlLabel>Email</ControlLabel>
         <FormControl
           type="text"
           placeholder="Enter email"
           onChange={this.onInputChange.bind(this)}
-          value={this.state.username}/>
+          value={this.state.new_email}/>
         </FormGroup>
-        <FormGroup controlId="password">
+
+        <FormGroup controlId="new_password">
         <ControlLabel>Password</ControlLabel>
         <FormControl
           type="password"
           placeholder="Enter Password"
           onChange={this.onInputChange.bind(this)}
-          value={this.state.password}/>
+          value={this.state.new_password}/>
         </FormGroup>
+
         <FormGroup
           controlId="confirmPassword"
           validationState={this.getValidationState()}>
@@ -86,6 +92,7 @@ class SignUp extends Component {
           onChange={this.onInputChange.bind(this)}
           value={this.state.confirmPassword}/>
         </FormGroup>
+
         <FormGroup controlId="organizationId">
         <ControlLabel>Organization</ControlLabel>
         <FormControl
@@ -94,6 +101,7 @@ class SignUp extends Component {
           onChange={this.onInputChange.bind(this)}
           value={this.state.organizationId}/>
         </FormGroup>
+
         <Button className="btn btn-success">Submit</Button>
       </Form>
     )

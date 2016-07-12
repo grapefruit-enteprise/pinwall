@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import Login from './login.js';
 import SignUp from './signup.js';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, PageHeader } from 'react-bootstrap';
 
 const LandingPage = (props) => {
   return (
-    <Grid>
-      <Row>
-        <Col xs={12} md={6}>
-        <Login />
-        </Col>
-        <Col xs={12} md={6}>
-          <SignUp />
-        </Col>
-      </Row>
-    </Grid>
+      <Grid>
+        <PageHeader>Pinwall</PageHeader>
+        <Row>
+          <Col xs={12} md={6}>
+          <Login />
+          </Col>
+          <Col xs={12} md={6}>
+            <SignUp />
+          </Col>
+        </Row>
+      </Grid>
   )
 }
 
