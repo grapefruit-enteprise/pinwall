@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
 
-export const NOTES = 'NOTES';
 export const USER_INFO = 'USER_INFO';
 export const ORGS = 'ORGS';
 export const CURRENT_ORG = 'CURRENT_ORG';
@@ -18,7 +16,7 @@ export function login(email, password) {
   return function(dispatch) {
     let url = 'api/users/login';
     axios.post(url, {
-      "email": email,
+      "email"   : email,
       "password": password
     })
     .then(function(response) {
@@ -36,8 +34,11 @@ export function login(email, password) {
       let userId = response.data.id;
       return axios.get(`api/user/${userId}/organizations`);
     })
+    .catch(function(err) {
+      alert("The user email and password did not match.");
+    })
     .then(function(response) {
-      dispatch({type: ORGS, payload: response.data})
+      if(response) dispatch({type: ORGS, payload: response.data})
       console.log('response from GET organizations by user:', response);
     });
   }

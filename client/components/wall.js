@@ -5,6 +5,9 @@ import { bindActionCreators } from 'redux';
 import NotePreview from './note-preview.js';
 import { selectCurrentNote } from '../actions/current-note-action.js';
 import Category from './category.js';
+import { retrieveNotes } from '../actions/retrieve-notes-action.js';
+import { selectCurrentOrg } from '../actions/login-action.js';
+import { retrieveCategories } from '../actions/retrieve-categories-action.js';
 
 //import Dummy from '../dummy_data.js';
 
@@ -14,6 +17,17 @@ class Wall extends Component {
     this.state = {
       // notes: Dummy
     }
+  }
+
+  componentWillMount() {
+    let orgId = this.props.params.org;
+    this.props.retrieveNotes(this.props.params.org);
+    this.props.selectCurrentOrg(this.props.params.org);
+    this.props.retrieveCategories(this.props.params.org);
+  }
+
+  componentDidMount() {
+    //call setInterval here, or perhaps 
   }
 
   renderNotes() {
@@ -51,7 +65,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( {selectCurrentNote: selectCurrentNote}, dispatch);
+  return bindActionCreators( {selectCurrentNote, retrieveNotes, selectCurrentOrg, retrieveCategories}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wall);

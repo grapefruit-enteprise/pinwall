@@ -26,10 +26,14 @@ class Login extends Component {
     event.preventDefault();
     return new Promise((resolve, reject) => {
       this.props.login(this.state.email, this.state.password);
-      resolve();
+      if (this.props.orgs.length > 0) resolve();
+      reject();
     })
     .then(() => {
       this.displayModal();
+    })
+    .catch(() => {
+      alert("There were no organizations associated with this user.")
     });
   }
 
@@ -70,6 +74,10 @@ class Login extends Component {
       </div>
     )
   }
+}
+
+function mapStateToProps(state) {
+  return {orgs: state.user.orgs}
 }
 
 function mapDispatchToProps(dispatch) {
