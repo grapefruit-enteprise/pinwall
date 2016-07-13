@@ -4,6 +4,8 @@ import { browserHistory } from 'react-router';
 export const NOTES = 'NOTES';
 export const USER_INFO = 'USER_INFO';
 export const ORGS = 'ORGS';
+export const CURRENT_ORG = 'CURRENT_ORG';
+
 
 // export function login(user, pass, organizationId) {
 //   console.log('in login', organizationId);
@@ -17,6 +19,14 @@ export const ORGS = 'ORGS';
 //       });
 //   }
 // }
+
+export function selectCurrentOrg(orgId) {
+  console.log("inside selectCurrentOrg", orgId)
+  return {
+      type: CURRENT_ORG,
+      payload: orgId
+    }
+}
 
 
 //first get organization options, then get messages, then get categories
