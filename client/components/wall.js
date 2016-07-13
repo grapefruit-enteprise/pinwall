@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import NotePreview from './note-preview.js';
 import { selectCurrentNote } from '../actions/current-note-action.js';
 import Category from './category.js';
+
 //import Dummy from '../dummy_data.js';
 
 class Wall extends Component {
@@ -35,10 +36,11 @@ class Wall extends Component {
 
   render() {
     return (
-      <div id="notes">
-        <h2>Wall</h2>
+      <div className="container" id="notes">
         <Category/>
-        {this.renderNotes()}
+        <row >
+          {this.renderNotes()}
+        </row>
       </div>
     )
   }
