@@ -6,6 +6,7 @@ export const USER_INFO = 'USER_INFO';
 export const ORGS = 'ORGS';
 export const CURRENT_ORG = 'CURRENT_ORG';
 
+
 // export function login(user, pass, organizationId) {
 //   console.log('in login', organizationId);
 //   return function(dispatch) {

@@ -37,6 +37,7 @@ exports.organizationUpdate = function(req, res, updatedOrg, orgId){
             res.status(200).send(result + " organization has been updated");
 
         })
+        
         .catch(function (err) {
             console.error("line 27: Notes Model", err.message);
             res.status(500).send(err.message);

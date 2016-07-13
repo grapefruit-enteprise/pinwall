@@ -2,31 +2,61 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { signup } from '../actions/signup-action.js';
 
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: '',
-      confirmPassword: ''
+      username:'',
+      firstname:'',
+      lastname:'',
+      new_password: '',
+      confirmPassword: '',
+      organization: '',
+      new_email:''
+
     }
   }
 
   onInputChange(event) {
     let key = event.target.id;
     this.setState({
+
       [key]: event.target.value
     });
+      console.log("inside onInputChange", this.state[key])
   }
 
+
   submitNewUser(event) {
+
     event.preventDefault();
+
+    let newUser = {
+      username: this.state.username,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      password: this.state.new_password,
+      organizationId: 2,
+      email: this.state.new_email
+      }
+
+ return new Promise((resolve, reject) => {
+      this.props.signup(newUser)
+      resolve();
+    })
+    .then(() => {
+      console.log("promise on singup container")
+ 
+      });
+
     //this.props.login(this.state.organization, this.state.user, this.state.password);
   }
 
   getValidationState() {
-    let password = this.state.password;
+    let password = this.state.new_password;
     let confirmPassword = this.state.confirmPassword;
     if (password.length && confirmPassword.length) {
       return password == confirmPassword ? 'success' : 'error';
@@ -102,13 +132,18 @@ class SignUp extends Component {
           value={this.state.organizationId}/>
         </FormGroup>
 
-        <Button className="btn btn-success">Submit</Button>
+        <Button className="btn btn-success" type="submit">Submit</Button>
       </Form>
     )
   }
 }
 
-export default SignUp;
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ signup }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SignUp);
 
 //For now, organizationId is the field, but maybe we can enter a text field to map to an org later
 
