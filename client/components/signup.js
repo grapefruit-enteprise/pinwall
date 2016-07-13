@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { signup } from '../actions/signup-action.js';
+import { retrieveNotes } from '../actions/retrieve-notes-action';
+import { retrieveCategories } from '../actions/retrieve-categories-action';
+
 
 
 class SignUp extends Component {
@@ -43,13 +47,22 @@ class SignUp extends Component {
       email: this.state.new_email
       }
 
+    let orgId = newUser.organizationId
+
  return new Promise((resolve, reject) => {
       this.props.signup(newUser)
-      resolve();
+      resolve(orgId);
     })
-    .then(() => {
+    .then((orgId) => {
       console.log("promise on singup container")
- 
+
+        return this.props.retrieveNotes(orgId)
+      }).then(() => {
+
+          console.log(orgId, "orgId in cat then")
+           this.props.retrieveCategories(orgId)
+           browserHistory.push(`/${orgId}`)
+
       });
 
     //this.props.login(this.state.organization, this.state.user, this.state.password);
@@ -140,7 +153,7 @@ class SignUp extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ signup }, dispatch);
+  return bindActionCreators({ signup, retrieveNotes,retrieveCategories }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SignUp);

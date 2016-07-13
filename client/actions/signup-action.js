@@ -17,7 +17,7 @@ export function signup(formObj) {
 		let user_data = Object.assign({}, formObj, newUserCreated)
 		console.log("userdata extend", user_data)
 
-		dispatch({type: USER_INFO, payload: user_data});
+		dispatch({type: USER_INFO, payload: user_data}); 
 
     })
 	}
