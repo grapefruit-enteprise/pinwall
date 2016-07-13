@@ -1,13 +1,13 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import routes from './config/routes';
+import ReduxThunk from 'redux-thunk';
 
-class Test extends React.Component {
-  render(){
-    return (
-      <div> Test123 </div>
-    )
-  }
-}
+import reducers from './reducers/root-reducer.js';
 
+const storeWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+const store = storeWithMiddleware(reducers);
 
-ReactDOM.render(<Test />, document.getElementById('app'));
+ReactDOM.render(<Provider store={store}>{routes}</Provider>, document.getElementById('app'));

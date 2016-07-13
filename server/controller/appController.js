@@ -1,3 +1,4 @@
+var db             = require('../db.js');
 var _              = require('lodash');
 var models         = require('../models/appModel');
 var Users          = require('../models/user');
@@ -6,6 +7,7 @@ var Categories     = require('../models/category');
 var Organizations  = require('../models/organization');
 var Tags           = require('../models/tag');
 var helper         = require('../helperFN/helpers.js');
+
 console.log("line 4: appController")
 
 module.exports = {
@@ -27,7 +29,7 @@ module.exports = {
     'organizations/:orgId': {
         get: function(req, res){},
         put: function(req, res){
-            var updatedOrg = _.pick(req.body, 'name', 'address', 'city',                    'state', 'phone', 'decription', 'img')
+            var updatedOrg = _.pick(req.body, 'name', 'address', 'city', 'state', 'phone', 'decription', 'img')
             var orgId = req.params.orgId
             Organizations.organizationUpdate(req, res, updatedOrg, orgId)
         },
@@ -39,6 +41,18 @@ module.exports = {
 //////////////////////////////////////////////////////////////////
 /////////////////         Users             //////////////////////
 //////////////////////////////////////////////////////////////////
+
+    'user/:userId/organizations': {
+        get: function(req, res){
+            var userId = req.params.userId;
+            Users.userOrganizationFetched(req, res, userId);
+        },
+        post: function(req, res){},
+        put: function(req, res){},
+        delete: function(req, res){}
+    },
+
+
 
     'organizations/:orgId/users': {
         get: function(req, res){
@@ -55,14 +69,14 @@ module.exports = {
         put: function(req, res){},
         delete: function(req, res){}
     },
-    'organizations/:orgId/users/:id': {
+    'organizations/:orgId/users/:userId': {
         get: function(req, res){},
         post: function(req, res){},
         put: function(req, res){
             var updatedUser = _.pick(req.body, 'username', 'firstname',
                             'lastname', 'email', 'password');
             updatedUser.organizationId = req.params.orgId
-            var paramId = req.params.id;
+            var paramId = req.params.userId;
             Users.userUpdate(req, res, updatedUser, paramId)
 
     },
@@ -87,6 +101,8 @@ module.exports = {
         },
         post: function(req, res){
             var loginUser = _.pick(req.body, 'email', 'password');
+            console.log('req.body', req.body);
+            console.log('loginUser', loginUser);
             if(typeof loginUser.email !== 'string' || typeof loginUser.password  !== 'string') {
                 return res.status(500).send();
             }
@@ -97,25 +113,24 @@ module.exports = {
         put: function(req, res){},
         delete: function(req, res){}
     },
-//    'organizations/:orgId/users/:id': {
-//        get: function(req, res){},
-//        post: function(req, res){},
-//        put: function(req, res){
-//            var updatedUser = _.pick(req.body, 'username', 'firstname',
-//                            'lastname', 'email', 'password');
-//            updatedUser.organizationId = req.params.orgId
-//            var paramId = req.params.id;
-//            Users.userUpdate(req, res, updatedUser, paramId)
-//
-//    },
-//        delete: function(req, res){
-//            console.log("line 103 : appController delete userID")
-//
-//            console.log("req.params", req.params.id)
-//            var userId = req.params.id
-//            Users.userDelete(req, res, userId);
-//        }
-//    },
+    'users/signup': {
+        get: function(req, res){},
+        post: function(req, res){
+            var newUser = _.pick(req.body, 'username', 'firstname',
+                            'lastname', 'email', 'password', 'organizationId');
+            Users.userCreate(req, res, newUser)
+
+
+        },
+        put: function(req, res){},
+        delete: function(req, res){
+            console.log("line 103 : appController delete userID")
+
+            console.log("req.params", req.params.id)
+            var userId = req.params.id
+            Users.userDelete(req, res, userId);
+        }
+    },
 
 //////////////////////////////////////////////////////////////////
 /////////////////              Notes        //////////////////////
@@ -156,7 +171,10 @@ module.exports = {
         }
     },
 
-   /////////////////for users
+//////////////////////////////////////////////////////////////////
+/////////////////       Notes by User       //////////////////////
+//////////////////////////////////////////////////////////////////
+
     'organizations/:orgId/users/:userId/notes': {
         get: function(req, res){
             var orgId = req.params.orgId
@@ -298,23 +316,3 @@ module.exports = {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
