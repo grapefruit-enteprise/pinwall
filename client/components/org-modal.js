@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { Modal, Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
-import { retrieveNotes } from '../actions/retrieve-notes-action.js';
-import { retrieveCategories } from '../actions/retrieve-categories-action.js';
-import { selectCurrentOrg } from '../actions/login-action.js';
 
 class OrgModal extends Component {
   constructor(props) {
@@ -14,27 +11,17 @@ class OrgModal extends Component {
   }
 
   onSelect(event) {
-    console.log('changing selection:', event.target.value);
     this.setState({
       orgId: event.target.value
     });
   }
-// Async action still performing out of order
+
   getMessagesByOrg(event) {
-    let orgId = this.state.orgId;
     event.preventDefault();
-    return new Promise((resolve, reject) => {
-      this.props.retrieveNotes(orgId);
-      this.props.selectCurrentOrg(orgId);
-      console.log('Inside first part of promise...');
-      resolve(orgId);
-    })
-    .then((orgId) => {
-      console.log('Inside second part of promise....');
-      this.props.retrieveCategories(orgId);
-      this.props.hideModal();
-      browserHistory.push(`/${orgId}`);
-    });
+    let orgId = this.state.orgId;
+    orgId ?
+      browserHistory.push(`/${orgId}`) :
+      alert('Please select an organization to continue.');
   }
 
   renderOptions() {
@@ -62,7 +49,7 @@ class OrgModal extends Component {
                 {this.renderOptions()}
               </FormControl>
             </FormGroup>
-            <Button type="submit">Close</Button>
+            <Button type="submit">Select</Button>
           </Form>
         </Modal.Body>
       </Modal>
@@ -74,8 +61,4 @@ function mapPropsToState(state) {
   return {orgs: state.user.orgs}
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({retrieveNotes: retrieveNotes, retrieveCategories: retrieveCategories, selectCurrentOrg: selectCurrentOrg}, dispatch)
-}
-
-export default connect(mapPropsToState, mapDispatchToProps)(OrgModal);
+export default connect(mapPropsToState)(OrgModal);
