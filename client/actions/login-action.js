@@ -32,4 +32,3 @@ export function logorgs(orgs) {
     type: ORGS,
     payload: orgs
   };
-}
