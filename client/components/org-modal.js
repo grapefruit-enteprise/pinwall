@@ -19,12 +19,9 @@ class OrgModal extends Component {
   getMessagesByOrg(event) {
     event.preventDefault();
     let orgId = this.state.orgId;
-    if (!orgId && this.props.orgs.length === 0) {
-      this.props.hideModal();
-      alert('There are no organizations associated with this user.');
-    } else {
-      browserHistory.push(`/${orgId}`);
-    }
+    orgId ?
+      browserHistory.push(`/${orgId}`) :
+      alert('Please select an organization to continue.');
   }
 
   renderOptions() {
@@ -52,7 +49,7 @@ class OrgModal extends Component {
                 {this.renderOptions()}
               </FormControl>
             </FormGroup>
-            <Button type="submit">Close</Button>
+            <Button type="submit">Select</Button>
           </Form>
         </Modal.Body>
       </Modal>

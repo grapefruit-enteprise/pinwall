@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
-import { login } from '../actions/login-action.js';
+import { login, lgin, lgorgs } from '../actions/login-action.js';
 import OrgModal from './org-modal.js';
 
 class Login extends Component {
@@ -24,16 +25,21 @@ class Login extends Component {
 
   submitUserInfo(event) {
     event.preventDefault();
-    return new Promise((resolve, reject) => {
-      this.props.login(this.state.email, this.state.password);
-      if (this.props.orgs.length > 0) resolve();
-      reject();
+    axios.post('api/users/login', {
+      "email"   : this.state.email,
+      "password": this.state.password
     })
-    .then(() => {
+    .then((response) => {
+      let userId = response.data.id;
+      this.props.lgin(response);
+      return axios.get(`api/user/${userId}/organizations`);
+    })
+    .then((response) => {
+      this.props.lgorgs(response.data);
       this.displayModal();
     })
-    .catch(() => {
-      alert("There were no organizations associated with this user.")
+    .catch((err) => {
+      alert("There were no organizations associated with this user");
     });
   }
 
@@ -77,11 +83,11 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-  return {orgs: state.user.orgs}
+  return {orgs: state.user.orgs, user: state.user}
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ login }, dispatch);
+  return bindActionCreators({ login, lgin, lgorgs }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Login);

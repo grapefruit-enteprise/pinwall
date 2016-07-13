@@ -120,7 +120,7 @@ class SignUp extends Component {
         <ControlLabel>Password</ControlLabel>
         <FormControl
           type="password"
-          placeholder="Enter Password"
+          placeholder="Enter Password (7 characters or more)"
           onChange={this.onInputChange.bind(this)}
           value={this.state.new_password}/>
         </FormGroup>
