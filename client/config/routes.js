@@ -5,6 +5,8 @@ import NavBar from '../components/navbar.js';
 import Wall from '../components/wall.js';
 import Note from '../components/note.js';
 import LandingPage from '../components/landing-page.js';
+import AddNoteForm from '../components/addNote.js';
+
 
 export default (
 <Router history={browserHistory} >
@@ -13,7 +15,7 @@ export default (
     <IndexRoute component={Wall} />
     <Route path="/:org" component={Wall} />
     <Route path="/:org/read/:noteId" component={Note} />
-    <Route path="/:org/write" component={Note} /> //placeholder
+    <Route path="/:org/write" component={AddNoteForm} /> //placeholder
     <Route path="/:org/edit/:noteId" component={Note} /> //placeholder
   </Route>
 </Router>
