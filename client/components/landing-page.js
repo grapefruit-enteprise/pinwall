@@ -5,17 +5,31 @@ import { Grid, Row, Col, PageHeader } from 'react-bootstrap';
 
 const LandingPage = (props) => {
   return (
-      <Grid>
-        <PageHeader>Pinwall</PageHeader>
-        <Row>
-          <Col xs={12} md={6}>
-          <Login />
-          </Col>
-          <Col xs={12} md={6}>
-            <SignUp />
-          </Col>
-        </Row>
-      </Grid>
+    <div>
+      <nav className="navbar navbar-default navbar-inverse">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <h1>Pinwall</h1>
+          </div>
+          <ul className="nav navbar-nav navbar-right">
+            <li className="dropdown">
+
+            </li>
+            <li className="dropdown">
+              
+            </li>
+          </ul>
+            <div className="row">
+              <div className="col-xs-12 col-md-6">
+                <Login />
+              </div>
+              <div className="col-xs-12 col-md-6">
+                <SignUp />
+              </div>
+            </div>
+          </div>
+      </nav>
+    </div>
   )
 }
 
