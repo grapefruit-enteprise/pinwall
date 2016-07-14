@@ -21,7 +21,7 @@
 ```
 
 ```
-npm install 
+npm install
 ```
 ```
 webpack -p
@@ -35,7 +35,7 @@ node server/server.js
 
 
 ## Front-End
-Pinwall's client side is built using React, Redux, and Bootstrap. 
+Pinwall's client side is built using React, Redux, and Bootstrap.
 
 ### Client Application Information
 
@@ -49,7 +49,7 @@ client
 │   ├── css
 │   ├── images
 │   └── js
-│   
+│
 ├── components
 │   ├── landing-page.js
 │   ├── login.js
@@ -58,20 +58,20 @@ client
 │   ├── note.js
 │   ├── signup.js
 │   └── wall.js
-│   
+│
 ├── config
 │   └── routes.js
-│  
+│
 ├── reducers
 │   ├── current-note-reducer.js
 │   ├── notes-reducer.js
 │   ├── root-reducer.js
 │   └── user-reducer.js
-│  
+│
 ├── static
 │   ├── assets
 │   └── styles
-│  
+│
 └── index.html
 ```
 
@@ -115,7 +115,7 @@ server
 
 #### api/organizations/:orgId/notes GET
 
-Expected   ****call path from clientside when you would like all notes from that organizations’ id  
+Expected   ****call path from clientside when you would like all notes from that organizations’ id
 
 Returns an array of notes as objects
 
@@ -150,4 +150,4 @@ Returns an array of notes as objects
 * [Stephanie Velazquez](https://github.com/stephvelazquez)
 * [Chadd Bennett](https://github.com/chaddbennett)
 * [Joseph Capezzuto](https://github.com/Capezzuto)
-* [Marco Berardini](https://github.com/carlbernardo)
+* [Marco Berardini](https://github.com/mb0606)
