@@ -20,7 +20,7 @@ class Wall extends Component {
   }
 
   componentWillMount() {
-    let orgId = this.props.currentOrg;
+    let orgId = this.props.params.org;
     this.props.retrieveNotes(orgId);
     this.props.retrieveCategories(orgId);
   }

@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Navbar, NavItem, Button, Grid } from 'react-bootstrap';
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = { term: '' }
+
   }
 
   onInputChange(event) {
@@ -15,6 +16,7 @@ class NavBar extends Component {
   //Add onSubmit={} to the form element once the callback is written
 
   render() {
+    console.log('context=',this.context)
     return(
     <div>
       <nav className="navbar navbar-fixed-top navbar-default">
