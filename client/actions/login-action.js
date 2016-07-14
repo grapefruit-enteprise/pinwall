@@ -21,6 +21,7 @@ export function login(response) {
     auth     : response.headers.auth,
     orgs     : []
   };
+
   return {
     type: USER_INFO,
     payload: user_data

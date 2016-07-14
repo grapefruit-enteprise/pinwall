@@ -20,7 +20,7 @@ class Wall extends Component {
   }
 
   componentWillMount() {
-    let orgId = this.props.currentOrg;
+    let orgId = this.props.params.org;
     this.props.retrieveNotes(orgId);
     this.props.retrieveCategories(orgId);
   }
@@ -30,6 +30,7 @@ class Wall extends Component {
   }
 
   renderNotes() {
+    console.log("current org id:", this.props.currentOrg);
     return this.props.notes.map(note => {
       let path = `/${note.organizationId}/read/${note.id}`;
       return (

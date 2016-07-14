@@ -6,8 +6,9 @@ import { Modal, Form, ControlLabel, FormGroup, FormControl, Button } from 'react
 import { selectCurrentOrg } from '../actions/login-action.js';
 
 class OrgModal extends Component {
-  constructor(props) {
-    super(props);
+
+  constructor(props,context) {
+    super(props,context);
     this.state = {};
   }
 
@@ -22,7 +23,7 @@ class OrgModal extends Component {
     let orgId = this.state.orgId;
     if (orgId) {
       this.props.selectCurrentOrg(orgId);
-      browserHistory.push(`/${orgId}`);
+      this.context.router.push(`/${orgId}`);
     } else {
       alert('Please select an organization to continue.');
     }
@@ -59,6 +60,10 @@ class OrgModal extends Component {
       </Modal>
     )
   }
+}
+
+OrgModal.contextTypes = {
+  router: React.PropTypes.object
 }
 
 function mapPropsToState(state) {
