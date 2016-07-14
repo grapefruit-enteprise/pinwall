@@ -30,6 +30,7 @@ class Wall extends Component {
   }
 
   renderNotes() {
+    console.log("current org id:", this.props.currentOrg);
     return this.props.notes.map(note => {
       let path = `/${note.organizationId}/read/${note.id}`;
       return (
