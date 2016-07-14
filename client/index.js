@@ -4,10 +4,13 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import routes from './config/routes';
 import ReduxThunk from 'redux-thunk';
-
+import { persistStore, autoRehydrate } from 'redux-persist';
+import createEncryptor from 'redux-persist-transform-encrypt';
 import reducers from './reducers/root-reducer.js';
 
-const storeWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
-const store = storeWithMiddleware(reducers);
+const encryptor = createEncryptor({ secretKey: 'w98nPvdlNIpo'});
+const createStoreApplyMiddleware = applyMiddleware(ReduxThunk)(createStore);
+const store = createStoreApplyMiddleware(reducers, undefined, autoRehydrate());
+persistStore(store, { transforms: [encryptor] });
 
 ReactDOM.render(<Provider store={store}>{routes}</Provider>, document.getElementById('app'));
