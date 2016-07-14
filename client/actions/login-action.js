@@ -11,7 +11,7 @@ export function selectCurrentOrg(orgId) {
     }
 }
 
-export function lgin(response) {
+export function login(response) {
   let user_data = {
     firstname: response.data.firstname,
     lastname : response.data.lastname,
@@ -27,7 +27,7 @@ export function lgin(response) {
   };
 }
 
-export function lgorgs(orgs) {
+export function logorgs(orgs) {
   return {
     type: ORGS,
     payload: orgs

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
-import { login, lgin, lgorgs } from '../actions/login-action.js';
+import { login, logorgs } from '../actions/login-action.js';
 import OrgModal from './org-modal.js';
 
 class Login extends Component {
@@ -31,11 +31,11 @@ class Login extends Component {
     })
     .then((response) => {
       let userId = response.data.id;
-      this.props.lgin(response);
+      this.props.login(response);
       return axios.get(`api/user/${userId}/organizations`);
     })
     .then((response) => {
-      this.props.lgorgs(response.data);
+      this.props.logorgs(response.data);
       this.displayModal();
     })
     .catch((err) => {
@@ -87,7 +87,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ login, lgin, lgorgs }, dispatch);
+  return bindActionCreators({ login, logorgs }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Login);

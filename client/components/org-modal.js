@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { Modal, Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { selectCurrentOrg } from '../actions/login-action.js';
 
 class OrgModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   onSelect(event) {
@@ -19,9 +20,12 @@ class OrgModal extends Component {
   getMessagesByOrg(event) {
     event.preventDefault();
     let orgId = this.state.orgId;
-    orgId ?
-      browserHistory.push(`/${orgId}`) :
+    if (orgId) {
+      this.props.selectCurrentOrg(orgId);
+      browserHistory.push(`/${orgId}`);
+    } else {
       alert('Please select an organization to continue.');
+    }
   }
 
   renderOptions() {
@@ -61,4 +65,8 @@ function mapPropsToState(state) {
   return {orgs: state.user.orgs}
 }
 
-export default connect(mapPropsToState)(OrgModal);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( { selectCurrentOrg }, dispatch )
+}
+
+export default connect(mapPropsToState, mapDispatchToProps)(OrgModal);

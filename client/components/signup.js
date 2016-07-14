@@ -7,63 +7,49 @@ import { signup } from '../actions/signup-action.js';
 import { retrieveNotes } from '../actions/retrieve-notes-action';
 import { retrieveCategories } from '../actions/retrieve-categories-action';
 
-
-
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username:'',
-      firstname:'',
-      lastname:'',
-      new_password: '',
+      username       : '',
+      firstname      : '',
+      lastname       : '',
+      new_password   : '',
       confirmPassword: '',
-      organization: '',
-      new_email:''
-
+      organization   : '',
+      new_email      : ''
     }
   }
 
   onInputChange(event) {
     let key = event.target.id;
     this.setState({
-
       [key]: event.target.value
     });
-      console.log("inside onInputChange", this.state[key])
   }
 
-
   submitNewUser(event) {
-
     event.preventDefault();
-
     let newUser = {
-      username: this.state.username,
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
-      password: this.state.new_password,
+      username      : this.state.username,
+      firstname     : this.state.firstname,
+      lastname      : this.state.lastname,
+      password      : this.state.new_password,
       organizationId: 2,
-      email: this.state.new_email
-      }
+      email         : this.state.new_email
+    };
+    let orgId = newUser.organizationId;
 
-    let orgId = newUser.organizationId
-
- return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.props.signup(newUser)
       resolve(orgId);
     })
     .then((orgId) => {
-      console.log("promise on singup container")
-
-        return this.props.retrieveNotes(orgId)
-      }).then(() => {
-
-          console.log(orgId, "orgId in cat then")
-           this.props.retrieveCategories(orgId)
-           browserHistory.push(`/${orgId}`)
-
-      });
+      return this.props.retrieveNotes(orgId)
+    }).then(() => {
+      this.props.retrieveCategories(orgId)
+      browserHistory.push(`/${orgId}`)
+    });
 
     //this.props.login(this.state.organization, this.state.user, this.state.password);
   }
@@ -72,7 +58,7 @@ class SignUp extends Component {
     let password = this.state.new_password;
     let confirmPassword = this.state.confirmPassword;
     if (password.length && confirmPassword.length) {
-      return password == confirmPassword ? 'success' : 'error';
+      return password == confirmPassword && password.length > 6 ? 'success' : 'error';
     }
   }
 

@@ -20,14 +20,13 @@ class Wall extends Component {
   }
 
   componentWillMount() {
-    let orgId = this.props.params.org;
-    this.props.retrieveNotes(this.props.params.org);
-    this.props.selectCurrentOrg(this.props.params.org);
-    this.props.retrieveCategories(this.props.params.org);
+    let orgId = this.props.currentOrg;
+    this.props.retrieveNotes(orgId);
+    this.props.retrieveCategories(orgId);
   }
 
   componentDidMount() {
-    //call setInterval here, or perhaps 
+    //call setInterval here, or perhaps
   }
 
   renderNotes() {
@@ -61,7 +60,7 @@ class Wall extends Component {
 }
 
 function mapStateToProps(state) {
-  return { notes: state.notes };
+  return { notes: state.notes, currentOrg: state.user.currentOrg };
 }
 
 function mapDispatchToProps(dispatch) {
