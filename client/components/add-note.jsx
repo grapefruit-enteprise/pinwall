@@ -7,7 +7,7 @@ class addNoteForm extends Component {
 		const { fields: { title, content, img, categories, tags }, handleSubmit } = this.props;
 		return (
 			<form onSubmit={handleSubmit}>
-				<button type="submit">Edit Note</button>
+				<button type="submit">Add Note</button>
 				<button type="submit">Delete Note</button>
 
 				<div>
