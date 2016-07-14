@@ -38,10 +38,10 @@ nav {
     padding-top: 10px;
 }
 
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
     color: #33CD99;
     background: #2B2E2E;
-
+    outline: 0;
 }
 .navbar-right {
     height: 80px;
@@ -65,6 +65,10 @@ nav {
 
 .navbar-default .navbar-nav>li>a {
    color: #33CD99;
+}
+.navbar-default .navbar-nav>li>a:focus {
+  color: #33CD99;
+  outline: 0;
 }
 .navbar-default .navbar-nav>li>a:hover {
    color: white;

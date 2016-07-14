@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
-//import { Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Form, ControlLabel, FormGroup, FormControl, Button, Row, Col } from 'react-bootstrap';
 import { signup } from '../actions/signup-action.js';
 import { retrieveNotes } from '../actions/retrieve-notes-action';
 import { retrieveCategories } from '../actions/retrieve-categories-action';
@@ -65,75 +65,79 @@ class SignUp extends Component {
 
   render() {
     return(
-      <Form onSubmit={this.submitNewUser.bind(this)}>
+      <Row>
+        <Col xs={6} xsOffset={3}>
+          <Form onSubmit={this.submitNewUser.bind(this)}>
 
-        <FormGroup controlId="username">
-        <ControlLabel>User Name</ControlLabel>
-        <FormControl
-          type="text"
-          placeholder="User"
-          onChange={this.onInputChange.bind(this)}
-          value={this.state.username}/>
-        </FormGroup>
+            <FormGroup controlId="username">
+            <ControlLabel>User Name</ControlLabel>
+            <FormControl
+              type="text"
+              placeholder="User"
+              onChange={this.onInputChange.bind(this)}
+              value={this.state.username}/>
+            </FormGroup>
 
-        <FormGroup controlId="firstname">
-        <ControlLabel>First Name</ControlLabel>
-        <FormControl
-          type="text"
-          placeholder="Enter name"
-          onChange={this.onInputChange.bind(this)}
-          value={this.state.firstname}/>
-        </FormGroup>
+            <FormGroup controlId="firstname">
+            <ControlLabel>First Name</ControlLabel>
+            <FormControl
+              type="text"
+              placeholder="Enter name"
+              onChange={this.onInputChange.bind(this)}
+              value={this.state.firstname}/>
+            </FormGroup>
 
-        <FormGroup controlId="lastname">
-        <ControlLabel>Last Name</ControlLabel>
-        <FormControl
-          type="text"
-          placeholder="Enter name"
-          onChange={this.onInputChange.bind(this)}
-          value={this.state.lastname}/>
-        </FormGroup>
+            <FormGroup controlId="lastname">
+            <ControlLabel>Last Name</ControlLabel>
+            <FormControl
+              type="text"
+              placeholder="Enter name"
+              onChange={this.onInputChange.bind(this)}
+              value={this.state.lastname}/>
+            </FormGroup>
 
-        <FormGroup controlId="new_email">
-        <ControlLabel>Email</ControlLabel>
-        <FormControl
-          type="text"
-          placeholder="Enter email"
-          onChange={this.onInputChange.bind(this)}
-          value={this.state.new_email}/>
-        </FormGroup>
+            <FormGroup controlId="new_email">
+            <ControlLabel>Email</ControlLabel>
+            <FormControl
+              type="text"
+              placeholder="Enter email"
+              onChange={this.onInputChange.bind(this)}
+              value={this.state.new_email}/>
+            </FormGroup>
 
-        <FormGroup controlId="new_password">
-        <ControlLabel>Password</ControlLabel>
-        <FormControl
-          type="password"
-          placeholder="Enter Password (7 characters or more)"
-          onChange={this.onInputChange.bind(this)}
-          value={this.state.new_password}/>
-        </FormGroup>
+            <FormGroup controlId="new_password">
+            <ControlLabel>Password</ControlLabel>
+            <FormControl
+              type="password"
+              placeholder="Enter Password (7 characters or more)"
+              onChange={this.onInputChange.bind(this)}
+              value={this.state.new_password}/>
+            </FormGroup>
 
-        <FormGroup
-          controlId="confirmPassword"
-          validationState={this.getValidationState()}>
-        <ControlLabel>Confirm Password</ControlLabel>
-        <FormControl
-          type="password"
-          placeholder="Re-enter Password"
-          onChange={this.onInputChange.bind(this)}
-          value={this.state.confirmPassword}/>
-        </FormGroup>
+            <FormGroup
+              controlId="confirmPassword"
+              validationState={this.getValidationState()}>
+            <ControlLabel>Confirm Password</ControlLabel>
+            <FormControl
+              type="password"
+              placeholder="Re-enter Password"
+              onChange={this.onInputChange.bind(this)}
+              value={this.state.confirmPassword}/>
+            </FormGroup>
 
-        <FormGroup controlId="organizationId">
-        <ControlLabel>Organization</ControlLabel>
-        <FormControl
-          type="text"
-          placeholder="Organization ID"
-          onChange={this.onInputChange.bind(this)}
-          value={this.state.organizationId}/>
-        </FormGroup>
+            <FormGroup controlId="organizationId">
+            <ControlLabel>Organization</ControlLabel>
+            <FormControl
+              type="text"
+              placeholder="Organization ID"
+              onChange={this.onInputChange.bind(this)}
+              value={this.state.organizationId}/>
+            </FormGroup>
 
-        <Button className="btn btn-success" type="submit">Submit</Button>
-      </Form>
+            <Button className="btn btn-success" type="submit">Submit</Button>
+          </Form>
+        </Col>
+      </Row>
     )
   }
 }
