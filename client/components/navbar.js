@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { logout } from '../actions/logout-action.js';
 
 class NavBar extends Component {
   constructor(props, context) {
@@ -15,7 +17,7 @@ class NavBar extends Component {
 
   onLogOut(event) {
     event.preventDefault();
-    //this.props.logout();
+    this.props.logout();
     this.context.persistor.purgeAll();
     this.context.router.push('/');
   }
@@ -71,9 +73,14 @@ class NavBar extends Component {
   }
 }
 
-static contextTypes = {
+NavBar.contextTypes = {
   persistor: PropTypes.object,
   router: PropTypes.object
 }
 
-export default NavBar;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ logout }, dispatch);
+}
+
+
+export default connect(null, mapDispatchToProps)(NavBar);

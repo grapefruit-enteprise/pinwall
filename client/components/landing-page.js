@@ -13,35 +13,24 @@ class LandingPage extends Component {
   componentWillReceiveProps(nextProps) {
     console.log('Will receive props...', this.props.user);
     console.log('Will receive props...(nextProps)', nextProps.user);
-    // if (nextProps.user.auth && nextProps.user.currentOrg) {
-    //   this.context.router.push(`/${nextProps.user.currentOrg}`)
-    // }
+    if (nextProps.user.auth && nextProps.user.currentOrg) {
+      this.context.router.push(`/${nextProps.user.currentOrg}`)
+    }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    console.log('Component will update...', this.props.user.auth);
-    console.log('Component will update...(nextProps)', nextProps.user.auth);
-  }
-
-  componentDidUpdate() {
-    console.log('Component updated...', this.props.user.auth);
-    // if (nextProps.user.auth && nextProps.user.currentOrg) {
-    //   this.context.router.push(`/${nextProps.user.currentOrg}`)
-    // }
-  }
-
-  // setTimeout( () => {
-  //   console.log('Will receive props...', this.props.user.auth);
-  // }, 100);
+  // componentWillUpdate(nextProps, nextState) {
+  //   console.log('Component will update...', this.props.user.auth);
+  //   console.log('Component will update...(nextProps)', nextProps.user.auth);
+  // }
   //
+  // componentDidUpdate() {
+  //   console.log('Component updated...', this.props.user.auth);
+  //   // if (nextProps.user.auth && nextProps.user.currentOrg) {
+  //   //   this.context.router.push(`/${nextProps.user.currentOrg}`)
+  //   // }
+  // }
 
   render() {
-
-    var things = new Promise( (resolve, reject) => {
-      setTimeout( () => {
-        resolve();
-      })
-    }).then( () => {
       return (
         <Tab.Container id="left-tabs-example" defaultActiveKey="splash">
           <div>
@@ -80,8 +69,6 @@ class LandingPage extends Component {
           </div>
         </Tab.Container>
       )
-    });
-    return things;
   }
 }
 

@@ -1,4 +1,5 @@
 import { USER_INFO, ORGS, CURRENT_ORG } from '../actions/login-action.js';
+import { LOGOUT } from '../actions/logout-action.js';
 //initial state sets orgs to empty array to handle modal behavior on login screen
 export default function(state = {orgs: [], currentOrg: null}, action) {
   switch(action.type) {
