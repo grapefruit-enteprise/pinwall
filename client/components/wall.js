@@ -16,13 +16,17 @@ class Wall extends Component {
   }
 
   componentWillMount() {
-    let orgId = this.props.params.org;
+    const orgId = this.props.params.org;
     this.props.retrieveNotes(orgId);
     this.props.retrieveCategories(orgId);
   }
 
   componentDidMount() {
-    //call setInterval here, or perhaps
+    const orgId = this.props.params.org;
+    setInterval( () => {
+      this.props.retrieveNotes(orgId);
+      this.props.retrieveCategories(orgId);
+    }, 15000);
   }
 
   renderNotes() {

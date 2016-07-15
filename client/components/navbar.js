@@ -18,7 +18,7 @@ class NavBar extends Component {
   onLogOut(event) {
     event.preventDefault();
     this.props.logout();
-    this.context.persistor.purgeAll();
+    //this.context.persistor.purgeAll();
     this.context.router.push('/');
   }
 
