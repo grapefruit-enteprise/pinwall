@@ -9,14 +9,10 @@ import { retrieveNotes } from '../actions/retrieve-notes-action.js';
 import { selectCurrentOrg } from '../actions/login-action.js';
 import { retrieveCategories } from '../actions/retrieve-categories-action.js';
 
-//import Dummy from '../dummy_data.js';
-
 class Wall extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // notes: Dummy
-    }
+    this.state = {}
   }
 
   componentWillMount() {
@@ -30,7 +26,6 @@ class Wall extends Component {
   }
 
   renderNotes() {
-    console.log("current org id:", this.props.currentOrg);
     return this.props.notes.map(note => {
       let path = `/${note.organizationId}/read/${note.id}`;
       return (
