@@ -11,6 +11,6 @@ import reducers from './reducers/root-reducer.js';
 const encryptor = createEncryptor({ secretKey: 'w98nPvdlNIpo'});
 const createStoreApplyMiddleware = applyMiddleware(ReduxThunk)(createStore);
 const store = createStoreApplyMiddleware(reducers, undefined, autoRehydrate());
-persistStore(store, { transforms: [encryptor] }, () => {console.log('rehydration complete')});
+const persistor = persistStore(store, { transforms: [encryptor] }, () => {console.log('rehydration complete')});
 
-ReactDOM.render(<Provider store={store}>{routes}</Provider>, document.getElementById('app'));
+ReactDOM.render(<Provider store={store} persistor={persistor}>{routes}</Provider>, document.getElementById('app'));

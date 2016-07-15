@@ -84,10 +84,6 @@ class Login extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {orgs: state.user.orgs, user: state.user}
-// }
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ login, logorgs }, dispatch);
 }
