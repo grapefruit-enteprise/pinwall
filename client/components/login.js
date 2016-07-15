@@ -92,4 +92,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ login, logorgs }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect (null, mapDispatchToProps)(Login);
