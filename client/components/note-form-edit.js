@@ -1,0 +1,83 @@
+import React, { Component, PropTypes } from 'react';
+import { reduxForm } from 'redux-form';
+import { updateNote } from '../actions/notes.js';
+import  { Link } from 'react-router';
+
+
+class NoteFormEdit extends Component {
+
+
+    onSubmit({ title, content, img, categories, tags }) {
+      const orgId = this.props.params.orgId;
+      const userId  = this.props.params.userId;
+      const noteId  = this.props.params.noteId;
+
+      this.props.updateNote({ title, content, img, categories, tags }, orgId, noteId)
+    }
+
+
+    render () {
+        const { fields: { title, content, img, categories, tags }, handleSubmit } = this.props;
+        return (
+          // console.log("state to prop in MAP222",this.props.note)
+
+        <div className="wrapper">
+            <div className="row">
+                <div className="col-xs-12 col-md-8 col-md-offset-2">
+                <div className="form-wrapper">
+
+                    <div className="panel panel-default">
+                        <div className="panel-body">
+                          <div className="form-title">
+                            <h1>Edit Note<div className="float-left">
+                              <Link to={"/organizations/"+ this.props.params.orgId} ><a><i className="fa fa-times"
+                              aria-hidden="true"></i></a></Link></div></h1></div>
+
+
+                        <form  onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+
+
+                            <div className="form-group">
+                              <input  type="text" className="form-control" placeholder="Title" { ...title }/>
+                            </div>
+
+                            <div className="form-group">
+                              <input className="form-control" placeholder="Image url http://image.com" { ...img }/>
+                            </div>
+                            <div className="form-group">
+                              <input type="text" className="form-control" placeholder="Category" { ...categories }/>
+                            </div>
+                            <div className="form-group">
+                              <input type="text" className="form-control" placeholder="Tags" { ...tags } />
+                            </div>
+
+                              <textarea classaName="form-control" rows="10" {...content}/>
+
+                            <button type="submit">Submit</button>
+                          </form>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        )
+    }
+}
+
+
+function validate(values){
+  console.log("In val fn")
+}
+
+function mapStateToProps(state) {
+  console.log("state to prop in MAP",state.notes.note)
+  return {initialValues: state.notes.note};
+}
+
+
+export default reduxForm({
+    form: NoteFormEdit,
+    fields: ['title', 'content', 'img', 'categories', 'tags'],
+    validate
+}, mapStateToProps , { updateNote })(NoteFormEdit)

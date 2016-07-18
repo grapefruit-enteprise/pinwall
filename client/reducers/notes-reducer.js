@@ -1,13 +1,21 @@
-import { NOTES } from '../actions/retrieve-notes-action.js';
+import { NOTES, CURRENT_NOTE, UPDATE_NOTE } from '../actions/types'
 
-function notesReducer(state = [], action) {
+const INITIAL_STATE = { all: [], note:null };
+
+
+export default function (state = INITIAL_STATE, action) {
   switch(action.type) {
     case NOTES:
-      return action.payload;
+    console.log("line 8 ", action.payload)
+      return {...state, all: action.payload.data }
+    case CURRENT_NOTE:
+      console.log("line 12 ", action.payload)
+      return {...state, note: action.payload}
+    case UPDATE_NOTE:
+      console.log("line 15 ", action.payload)
+      return {...state, note: action.payload}
+    default:
+    return state;
   }
-  return state;
+
 }
-
-export default notesReducer;
-
-//...

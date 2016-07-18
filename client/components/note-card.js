@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-const NotePreview = ({title, date, content}) => {
+const NoteCard = ({title, date, content}) => {
   return (
-      <div className="col-lg-3 col-sm-4 col-xs-12 note">
+      <div className="col-md-4" >
+      <div className="note">
         <p className="title">{title}</p>
         <p className="date">{date}</p>
+        </div>
       </div>
   )
 }
 
-export default NotePreview;
+export default NoteCard;

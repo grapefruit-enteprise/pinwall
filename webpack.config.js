@@ -1,18 +1,26 @@
 module.exports = {
   entry: [
-    './client/index.js'
+    './client/routes.js'
   ],
   output: {
-    path: __dirname + '/dist',
+    path: __dirname,
     publicPath: '/',
-    filename: 'index_bundle.js'
+    filename: 'bundle.js',
   },
   module: {
-    loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
-    ]
+    loaders: [{
+      exclude: /node_modules/,
+      loader: 'babel',
+      query: {
+        presets: ['react', 'es2015', 'stage-1']
+      }
+    }]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './'
+  }
 };

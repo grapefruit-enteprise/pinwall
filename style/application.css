@@ -17,7 +17,9 @@
  a:hover {
    color: #2B2E2E;
  }
-
+.wrapper {
+    margin-top: 100px;
+}
 nav {
     position: fixed;
 }
@@ -38,10 +40,10 @@ nav {
     padding-top: 10px;
 }
 
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     color: #33CD99;
     background: #2B2E2E;
-    outline: 0;
+
 }
 .navbar-right {
     height: 80px;
@@ -66,10 +68,6 @@ nav {
 .navbar-default .navbar-nav>li>a {
    color: #33CD99;
 }
-.navbar-default .navbar-nav>li>a:focus {
-  color: #33CD99;
-  outline: 0;
-}
 .navbar-default .navbar-nav>li>a:hover {
    color: white;
 }
@@ -90,7 +88,12 @@ a:active, a:focus ,a:visited {
    padding: 3.5rem 0;
  }
 */
-
+.form-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #E9E9E9;
+}
  .clearfix:before, .clearfix:after {
    content: " ";
    display: table;
@@ -101,7 +104,7 @@ a:active, a:focus ,a:visited {
  }
 
 .spacer {
-  height: 60px;
+  height: 80px;
 }
 .spacer2 {
   height: 30px;
@@ -186,8 +189,12 @@ a:active, a:focus ,a:visited {
 #search {
   max-width: 250px;
 }
-/*
-
+.panel.panel-default {
+  padding: 20px;
+}
+.form-wrapper{
+  padding:25px;
+}
  input[type="text"], input[type="email"], input[type="date"], input[type="password"], textarea {
    width: 100%;
    margin-bottom: 1rem;
@@ -202,4 +209,3 @@ a:active, a:focus ,a:visited {
  textarea {
    min-height: 200px;
  }
-*/
