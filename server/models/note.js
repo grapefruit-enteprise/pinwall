@@ -53,6 +53,23 @@ exports.notesFetchedbyUser = function(req ,res, orgId, userId){
 
 }
 
+exports.notesFetchedbyCat = function(req, res, catId){
+    db.Category.findById(catId)
+        .then(function(category){
+//            console.log("line 8: fetch Note", category);
+            category.getNotes()
+                .then(function(notes){
+                    console.log("All notes with that catId", JSON.stringify(notes, null ,4))
+                    res.status(200).send(notes);
+            })
+            .catch(function(err){
+                console.error(err.message);
+                res.status(500).send(err.message);
+
+            });
+        })
+}
+
 
 exports.noteCreate = function(req, res, newNote, categories, tags) {
 //    console.log("line 19: note",newNote);
@@ -82,8 +99,8 @@ exports.noteCreate = function(req, res, newNote, categories, tags) {
                 }) // note
 
         })
-        .then(function(){
-            res.status(200).send("Note has been Created");
+        .then(function(note){
+            res.status(200).send("Note has been Created " + note);
         })
         .catch(function(err){
             console.error(err.message);
@@ -175,14 +192,3 @@ exports.noteDeleteByUser = function(req, res, noteId, orgId , userId){
 
 
 }
-
-
-
-
-
-
-
-
-
-
-

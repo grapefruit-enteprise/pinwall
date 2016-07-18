@@ -18,6 +18,23 @@ exports.categoriesFetched = function(req, res, orgId){
 }
 
 
+exports.categoriesFetchedbyNoteId = function(req, res, noteId){
+
+    db.Note.findById(noteId)
+        .then(function(note){
+            note.getCategories()
+            .then(function(categories){
+                console.log("All notes ", JSON.stringify(categories, null ,4));
+                res.status(200).send(categories);
+            })
+            .catch(function (err) {
+                console.error("line 13: Note  Model", err.message);
+                res.status(500).send(err.message);
+
+            });
+    });
+}
+
 
 exports.categoryCreate = function(req, res, newCat){
     console.log("line 4: category",newCat);

@@ -1,6 +1,9 @@
 var bcrypt    = require('bcrypt');
-var _         = require('lodash')
+var _         = require('lodash');
+var cryptojs  = require('crypto-js');
+var jwt       = require('jsonwebtoken');
 var Sequelize = require('sequelize');
+var secret    = require('./config/config.js');
 
 var sequelize = new Sequelize('postgres://admin:MSTTGVCHDZJPXQPV@aws-us-east-1-portal.12.dblayer.com:10825/compose');
 
@@ -88,10 +91,56 @@ var User = sequelize.define('User', {
             }
         }
     },
-    instanceMethods:{
+    classMethods:{
+        findByToken: function(token){
+            return new Promise(function(resolve, reject){
+                try{
+                    var decodedJWT = jwt.verify(token, secret.JWT_STRING);
+                    var bytes      = cryptojs.AES.decrypt(decodedJWT.token, secret.ENCRYPT_STRING);
+                    var tokenData  = JSON.parse(bytes.toString(cryptojs.enc.Utf8));
+
+                    User.findbyId(tokenData.id)
+                        .then(function(user){
+                            if(user){
+                                resolve(user);
+                            }
+                            else
+                            {
+                                reject();
+                            }
+
+                        }, function(err){
+                        reject();
+                    })
+                } catch(e){
+                    reject();
+                }
+            })
+        }
+    },
+    instanceMethods: {
         toPublicJSON: function(){
             var json = this.toJSON();
             return _.pick(json, 'id', 'username', 'firstname', 'lastname', 'email', 'createdAt', 'updatedAt');
+        },
+        generateToken: function(type){
+            if(!_.isString(type)){
+                return undefined;
+            }
+            try {
+                var stringData   = JSON.stringify({
+                    id  : this.get('id'),
+                    type: type
+                });
+                var encrytedData = cryptojs.AES.encrypt(stringData, secret.ENCRYPT_STRING).toString();
+                var token        = jwt.sign({
+                    token: encrytedData
+                }, secret.JWT_STRING);
+
+                return token;
+            } catch(err){
+                return undefined;
+            }
         }
     }
 });
@@ -198,33 +247,3 @@ exports.Note         = Note;
 exports.Category     = Category;
 exports.Organization = Organization;
 exports.Tag          = Tag;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
