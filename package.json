@@ -1,0 +1,55 @@
+{
+  "name": "Pinwall",
+  "version": "1.0.0",
+  "description": "Note sharing",
+  "main": "./server/server.js",
+  "scripts": {
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "prod": "NODE_ENV=production node server.js",
+    "postinstall": "webpack -p"
+
+  },
+  "author": "Marco Berardini, Chadd Bennett, Stephanie Velazquez, Joe Capezzuto",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "jquery": "^2.2.1",
+    "jsdom": "^8.1.0",
+    "react-addons-test-utils": "^0.14.7",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "async": "^2.0.0-rc.6",
+    "axios": "^0.13.0",
+    "babel-preset-stage-1": "^6.1.18",
+    "babel-core": "^6.2.1",
+    "webpack": "^1.12.9",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "crypto-js": "^3.1.6",
+    "express": "^4.14.0",
+    "history": "^3.0.0",
+    "jsonwebtoken": "^7.0.1",
+    "lodash": "^3.10.1",
+    "morgan": "^1.7.0",
+    "pg": "^6.0.1",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-redux": "^4.0.0",
+    "react-router": "^2.5.2",
+    "redux": "^3.0.4",
+    "redux-form": "^5.3.1",
+    "redux-persist": "^3.2.2",
+    "redux-persist-transform-encrypt": "^0.1.2",
+    "redux-thunk": "^2.1.0",
+    "request": "^2.72.0",
+    "sequelize": "^3.23.4"
+  }
+}

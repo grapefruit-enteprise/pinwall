@@ -1,0 +1,4 @@
+node_modules/
+client/lib/
+bundle.js
+config/config.js
