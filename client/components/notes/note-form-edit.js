@@ -1,24 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { createNote } from '../actions/notes.js';
+import { updateNote } from '../../actions/notes.js';
 import  { Link } from 'react-router';
 
 
-class NoteForm extends Component {
+class NoteFormEdit extends Component {
 
 
     onSubmit({ title, content, img, categories, tags }) {
       const orgId = this.props.params.orgId;
       const userId  = this.props.params.userId;
+      const noteId  = this.props.params.noteId;
 
-      this.props.createNote({ title, content, img, categories, tags }, userId, orgId)
+      this.props.updateNote({ title, content, img, categories, tags }, orgId, noteId)
     }
 
 
     render () {
         const { fields: { title, content, img, categories, tags }, handleSubmit } = this.props;
-
         return (
+          // console.log("state to prop in MAP222",this.props.note)
 
         <div className="wrapper">
             <div className="row">
@@ -28,8 +29,8 @@ class NoteForm extends Component {
                     <div className="panel panel-default">
                         <div className="panel-body">
                           <div className="form-title">
-                            <h1>Create Note<div className="float-left">
-                              <Link to={"/organizations/" + this.props.params.orgId} ><a><i className="fa fa-times"
+                            <h1>Edit Note<div className="float-left">
+                              <Link to={"/organizations/"+ this.props.params.orgId} ><a><i className="fa fa-times"
                               aria-hidden="true"></i></a></Link></div></h1></div>
 
 
@@ -37,22 +38,29 @@ class NoteForm extends Component {
 
 
                             <div className="form-group">
-                              <input type="text" className="form-control" placeholder="Title" { ...title }/>
+                              <input  type="text" className="form-control" placeholder="Title" { ...title }/>
                             </div>
 
                             <div className="form-group">
-                              <input { ...img } className="form-control" placeholder="Image url http://image.com"/>
+                              <input className="form-control" placeholder="Image url http://image.com" { ...img }/>
                             </div>
-                            <div className="form-group">
-                              <input type="text" className="form-control" placeholder="Category" { ...categories }/>
+
+                            <div>
+                              <label>Please select from the list of Categories</label>
+                              <div className="form-select">
+                              <select multiple className="form-control" { ...categories }>
+                                { this.props.categories.map( category => <option key={category.id} value={category.id}>{category.title}</option>) }
+                              </select>
+                              </div>
                             </div>
+
                             <div className="form-group">
                               <input type="text" className="form-control" placeholder="Tags" { ...tags } />
                             </div>
 
                               <textarea classaName="form-control" rows="10" {...content}/>
 
-                            <button type="submit">Submit</button>
+                            <button classaName="button" type="submit">Submit</button>
                           </form>
                           </div>
                         </div>
@@ -69,9 +77,17 @@ function validate(values){
   console.log("In val fn")
 }
 
+function mapStateToProps(state) {
+  console.log("state to prop in MAP",state.notes.note)
+  console.log(state.notes.noteCats)
+  state.notes.note['categories'] = [];
+  state.notes.note['categories'] = state.notes.noteCats.map( noteCat => noteCat.id )
+  return {initialValues: state.notes.note, categories: state.categories.categories};
+}
+
 
 export default reduxForm({
-    form: NoteForm,
+    form: NoteFormEdit,
     fields: ['title', 'content', 'img', 'categories', 'tags'],
     validate
-}, null , { createNote })(NoteForm)
+}, mapStateToProps , { updateNote })(NoteFormEdit)

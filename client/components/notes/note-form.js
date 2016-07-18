@@ -1,36 +1,53 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { updateNote } from '../actions/notes.js';
+import { createNote } from '../../actions/notes.js';
 import  { Link } from 'react-router';
 
 
-class NoteFormEdit extends Component {
+class NoteForm extends Component {
 
 
     onSubmit({ title, content, img, categories, tags }) {
       const orgId = this.props.params.orgId;
       const userId  = this.props.params.userId;
-      const noteId  = this.props.params.noteId;
 
-      this.props.updateNote({ title, content, img, categories, tags }, orgId, noteId)
+      this.props.createNote({ title, content, img, categories, tags }, userId, orgId)
+    }
+    renderCategories(){
+      if(!this.props.categories){
+        return (
+          <div className="alert alert-notice">
+            Your orgaization has no categories
+          </div>
+        )
+      }
+      return (
+        <div className="alert alert-notice">
+          Your orgaization has no categories
+        </div>
+      )
+
+
+
+
     }
 
 
     render () {
         const { fields: { title, content, img, categories, tags }, handleSubmit } = this.props;
+
         return (
-          // console.log("state to prop in MAP222",this.props.note)
 
         <div className="wrapper">
             <div className="row">
-                <div className="col-xs-12 col-md-8 col-md-offset-2">
+                <div className="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
                 <div className="form-wrapper">
 
                     <div className="panel panel-default">
                         <div className="panel-body">
                           <div className="form-title">
-                            <h1>Edit Note<div className="float-left">
-                              <Link to={"/organizations/"+ this.props.params.orgId} ><a><i className="fa fa-times"
+                            <h1>Create Note<div className="float-left">
+                              <Link to={"/organizations/" + this.props.params.orgId} ><a><i className="fa fa-times"
                               aria-hidden="true"></i></a></Link></div></h1></div>
 
 
@@ -38,22 +55,29 @@ class NoteFormEdit extends Component {
 
 
                             <div className="form-group">
-                              <input  type="text" className="form-control" placeholder="Title" { ...title }/>
+                              <input type="text" className="form-control" placeholder="Title" { ...title }/>
                             </div>
 
                             <div className="form-group">
-                              <input className="form-control" placeholder="Image url http://image.com" { ...img }/>
+                              <input { ...img } className="form-control" placeholder="Image url http://image.com"/>
                             </div>
-                            <div className="form-group">
-                              <input type="text" className="form-control" placeholder="Category" { ...categories }/>
+
+                            <div>
+                            <label>Please select from the list of Categories</label>
+                            <div className="form-select">
+                            <select multiple className="form-control" { ...categories }>
+                            { this.props.categories.map( category => <option key={category.id} value={category.id}>{category.title}</option>) }
+                            </select>
                             </div>
+                            </div>
+
                             <div className="form-group">
                               <input type="text" className="form-control" placeholder="Tags" { ...tags } />
                             </div>
 
                               <textarea classaName="form-control" rows="10" {...content}/>
 
-                            <button type="submit">Submit</button>
+                            <button classaName="button" type="submit">Submit</button>
                           </form>
                           </div>
                         </div>
@@ -71,13 +95,12 @@ function validate(values){
 }
 
 function mapStateToProps(state) {
-  console.log("state to prop in MAP",state.notes.note)
-  return {initialValues: state.notes.note};
+  console.log("FORM this cat", state.categories)
+  return { categories: state.categories.categories};
 }
 
-
 export default reduxForm({
-    form: NoteFormEdit,
+    form: NoteForm,
     fields: ['title', 'content', 'img', 'categories', 'tags'],
     validate
-}, mapStateToProps , { updateNote })(NoteFormEdit)
+}, mapStateToProps , { createNote })(NoteForm)

@@ -7,11 +7,14 @@
  }
 
  body {
-   font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+  font-family: 'Roboto',"Open Sans", "Helvetica Neue", Helvetica, sans-serif;
  }
-
+.empty {
+    display: inline;
+}
  a {
-   color: #16EBE3;
+     width:100%;
+   color: #33CD99;
    text-decoration: none;
  }
  a:hover {
@@ -30,7 +33,6 @@ nav {
 
 .navbar-brand img {
     width: 150px;
-    color: #16EBE3;
     padding-top: 10px;
 }
 .navbar-form{
@@ -41,22 +43,32 @@ nav {
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-    color: #33CD99;
     background: #2B2E2E;
 
 }
 .navbar-right {
     height: 80px;
+    color: #33CD99;
+
 }
+.navbar-right {
+    height: 80px;
+    color: #33CD99;
+
+}
+
 .navbar-header {
     height: 80px;
 }
 .navbar.navbar-default{
     background: #2B2E2E;
     height: 80px;
-    border-bottom: 7px solid #33CD99;
+    border-bottom: 7px solid #2A80B9;
     z-index: 1;
     margin-bottom: 20px;
+    webkit-box-shadow: 0px 8px 0px -4px rgba(0,0,0,0.11);
+    -moz-box-shadow: 0px 8px 0px -4px rgba(0,0,0,0.11);
+    box-shadow: 0px 8px 0px -4px rgba(0,0,0,0.11);
 
 }
 
@@ -65,16 +77,30 @@ nav {
 }
 
 
+
 .navbar-default .navbar-nav>li>a {
    color: #33CD99;
 }
-.navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav li a:hover {
    color: white;
 }
+.navbar-default .navbar-nav>li>a:active {
+   color: #33CD99;
 
+}
+.navbar-default .navbar-nav>li>a:focus {
+   color: #33CD99;
+
+}
+.navbar-default .navbar-nav>li>a:visited {
+color: #33CD99;
+
+
+}
 a:active, a:focus ,a:visited {
    color: #33CD99;
 }
+
 
 /*
  .wrapper {
@@ -110,11 +136,20 @@ a:active, a:focus ,a:visited {
   height: 30px;
 }
 
+button {
+  color: white;
+  text-decoration: none;
+}
+button:hover {
+  color: white;
+color: #2B2E2E
+}
+
  button, .button {
    border: none;
    outline: none;
    background: #33CD99;
-   padding: 1rem 3.5rem;
+   padding: 1em 3.5em;
    border-radius: 2rem;
  }
  button a, .button a {
@@ -124,16 +159,11 @@ a:active, a:focus ,a:visited {
 
  .button {
    color: white;
-   margin: 2rem 0;
+   margin: 0.5em 0;
  }
 
- a {
-   color: #33CD99;
-   text-decoration: none;
- }
- a:hover {
-   color: #2B2E2E;
- }
+
+
 
 /*
  header {
@@ -195,6 +225,16 @@ a:active, a:focus ,a:visited {
 .form-wrapper{
   padding:25px;
 }
+.form-select {
+  margin-bottom: 1em;
+}
+#org {
+    margin-right:20px;
+}
+select {
+    min-width: 200px;
+}
+
  input[type="text"], input[type="email"], input[type="date"], input[type="password"], textarea {
    width: 100%;
    margin-bottom: 1rem;

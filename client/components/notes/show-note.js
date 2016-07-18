@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import        { connect }   from 'react-redux';
 import        { Link }      from 'react-router';
 import      { deleteNote,
-            showEditNote  } from '../actions/notes.js';
+            showEditNote,
+            getNoteCat  } from '../../actions/notes.js';
 
 
 class Note extends Component {
 
+  componentWillMount(){
+    this.props.getNoteCat(this.props.params.noteId);
+
+  }
   onDeleteClick(){
     this.props.deleteNote(this.props.params.orgId , this.props.params.noteId)
 
@@ -22,7 +27,7 @@ class Note extends Component {
     return(
 
       <div className="row">
-        <div className="col-md-6 col-md-offset-3" >
+        <div className="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1" >
           <div className="spacer"></div>
             <div className="panel panel-default">
               <div className="panel-body">
@@ -61,4 +66,9 @@ function mapStateToProps(state) {
   return {note: state.notes.note};
 }
 
-export default connect(mapStateToProps, { deleteNote:deleteNote, showEditNote:showEditNote  })(Note);
+export default connect(mapStateToProps,
+{
+  deleteNote:deleteNote,
+  showEditNote:showEditNote,
+  getNoteCat:getNoteCat
+})(Note);

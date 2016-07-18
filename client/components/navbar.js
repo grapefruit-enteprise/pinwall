@@ -1,15 +1,59 @@
 import React, { Component } from 'react';
 import        { Link }      from 'react-router';
 import        { connect }   from 'react-redux';
+import      { signoutUser } from '../actions/auth.js';
 
 
 
 class NavBar extends Component {
 
 
+    renderBrand() {
+
+        if (this.props.auth.authenticated) {
+            return <Link to={"/organizations/" + 1} className="navbar-brand" >
+                    <img alt="Brand" src="/style/images/white_PiNWALL1.svg" />
+                   </Link>
+        } else {
+            return <Link to={"/"} className="navbar-brand" >
+                    <img alt="Brand" src="/style/images/white_PiNWALL1.svg" />
+                   </Link>
+        }
+    }
+
+   renderLinks() {
+
+    if (this.props.auth.authenticated) {
+
+
+
+      return (
+        <ul className="nav navbar-nav navbar-right">
+
+            <li>
+                <Link to={"/organizations/" + 1 + "/" +"users/" + 1 + "/notes"}>Create Note </Link>
+            </li>
+            <li>
+                <a
+                onClick={() => this.props.signoutUser()}
+                >Logout</a>
+            </li>
+     </ul>
+          )
+
+    } else {
+      return (
+        <ul className="nav navbar-nav navbar-right">
+            <li>
+              <Link to="/signin">Login</Link>
+            </li>
+        </ul>
+          )
+    }
+
+  }
 
   render() {
-    console.log("NAVBAR", this.params)
     return(
       <div>
         <nav className="navbar navbar-fixed-top navbar-default">
@@ -22,9 +66,7 @@ class NavBar extends Component {
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-              <Link to={"/"} className="navbar-brand" href="#">
-                <img alt="Brand" src="/style/images/white_PiNWALL.svg" />
-              </Link>
+                {this.renderBrand()}
             </div>
             {/* Collect the nav links, forms, and other content for toggling */}
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -33,14 +75,10 @@ class NavBar extends Component {
                   <input type="text" className="form-control" placeholder="Search" />
                 </div>
               </form>
-              <ul className="nav navbar-nav navbar-right">
-              <li> <Link to={"/organizations/" + "1" + "/" +
-               "users/1" + "/notes"}>Create Note </Link></li>
-               <li>  <a href="#">Login</a> </li>
-               <li>  <a href="#">Sign up</a> </li>
 
-              </ul>
-            </div>{/* /.navbar-collapse */}
+                {this.renderLinks()}
+
+            </div>
           </div>
         </nav>
 
@@ -51,4 +89,11 @@ class NavBar extends Component {
 }
 
 
-export default connect(null)(NavBar);
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+
+  }
+}
+
+export default connect(mapStateToProps, {signoutUser:signoutUser})(NavBar);

@@ -1,28 +1,57 @@
+#categories {
+  text-align: center;
+  padding: 0px 10px 20px 10px;
+  margin-bottom: 10px;
+}
+#categories h2{
+  margin-bottom:25px;
+}
+
+#categories a{
+  color:#33CD99;
+  padding: 0 15px;
+  font-size: 1.4em;
+  border-right: 1px solid #ddd;
+
+}
+#categories a:hover {
+    color: rgba(0,0,0,.7);
+  text-decoration: none;
+}
+#categories a:last-child  {
+    border-right:none;
+}
+
 #notes {
-    margin-top:100px;
+    margin:100px 0PX;;
+
 }
 
 #notes .note {
-  background: #2b2e2e;
-  width:100%;
-  min-height: 150px;
-  margin: 1rem 1%;
-  padding: 1.5rem 2.5%;
-  float: left;
-  border-radius: .4rem;
-  position: relative;
+    background: #2b2e2e;
+    width:100%;
+    min-height: 150px;
+    margin: 1rem 1%;
+    padding: 1.5rem 2.5%;
+    float: left;
+    border-radius: .4rem;
+    position: relative;
+    -webkit-box-shadow: 7px 10px 5px -5px rgba(0,0,0,0.26);
+    -moz-box-shadow: 7px 10px 5px -5px rgba(0,0,0,0.26);
+    box-shadow: 7px 10px 5px -5px rgba(0,0,0,0.26);
 }
 #notes .note .title {
-  color: white;
-  margin: 0;
-  font-size: 1.8em;
+    color: white;
+    weight: 900;
+    margin: 0;
+    font-size: 1.8em;
 }
 #notes .note .date {
-  position: absolute;
-  bottom: .25rem;
-  right: 5%;
-  color: #33CD99;
-  font-size: 1rem;
+    position: absolute;
+    bottom: .25rem;
+    right: 5%;
+    color: #33CD99;
+    font-size: 1rem;
 }
 
 #note_show .title {
@@ -40,12 +69,12 @@
 
 #note_show .noteImgCont {
     width: 100%;
-margin-bottom: 20px;
+    margin-bottom: 20px;
 
 }
 #note_show .noteImg {
     margin: 0 auto;
-    max-height: 200px;
+    max-width: 400px;
 
 }
 
