@@ -342,7 +342,8 @@ NOTES
 
 
 
-![pinwallgif](https://cloud.githubusercontent.com/assets/13357063/16932929/af84d46e-4cfe-11e6-84b9-488649f96e9f.gif)
+![pinwalldemo](https://cloud.githubusercontent.com/assets/13357063/16933320/3807d3ac-4d01-11e6-97d1-fc0476f10b1d.gif)
+
 
 
 
