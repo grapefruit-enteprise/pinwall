@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { reduxForm, addArrayValue } from 'redux-form';
 import { updateNote } from '../../actions/notes.js';
 import  { Link } from 'react-router';
 
@@ -11,6 +11,7 @@ class NoteFormEdit extends Component {
       const orgId = this.props.params.orgId;
       const userId  = this.props.params.userId;
       const noteId  = this.props.params.noteId;
+      console.log('orgId', orgId, 'noteId ', noteId);
 
       this.props.updateNote({ title, content, img, categories, tags }, orgId, noteId)
     }
@@ -18,6 +19,7 @@ class NoteFormEdit extends Component {
 
     render () {
         const { fields: { title, content, img, categories, tags }, handleSubmit } = this.props;
+        console.log('props in edit render', this.props);
         return (
           // console.log("state to prop in MAP222",this.props.note)
 
@@ -49,7 +51,7 @@ class NoteFormEdit extends Component {
                               <label>Please select from the list of Categories</label>
                               <div className="form-select">
                               <select multiple className="form-control" { ...categories }>
-                                { this.props.categories.map( category => <option key={category.id} value={category.id}>{category.title}</option>) }
+                                { this.props.fields.categories.initialValue.map( category => <option key={category.id} value={category.id}>{category.title}</option>) }
                               </select>
                               </div>
                             </div>
@@ -79,10 +81,14 @@ function validate(values){
 
 function mapStateToProps(state) {
   console.log("state to prop in MAP",state.notes.note)
-  console.log(state.notes.noteCats)
-  state.notes.note['categories'] = [];
-  state.notes.note['categories'] = state.notes.noteCats.map( noteCat => noteCat.id )
-  return {initialValues: state.notes.note, categories: state.categories.categories};
+  console.log('state.note.noteCats', state.notes.noteCats)
+  console.log('state.categories.categories', state.categories.categories);
+  // state.notes.note['categories'] = [];
+  // //state.notes.note['categories'] = state.notes.noteCats.map( noteCat => noteCat.id )
+
+  const noteInfo = Object.assign({}, state.notes.note, state.categories);
+  console.log('noteInfo=', noteInfo);
+  return {initialValues: noteInfo};
 }
 
 

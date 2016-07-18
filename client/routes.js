@@ -13,8 +13,7 @@ import NoteForm     from './components/notes/note-form';
 import NoteFormEdit from './components/notes/note-form-edit';
 import reducers     from './reducers';
 
-export default routes = (
-  <Router history={browserHistory}>
+const routes = (
     <Route path="/" component={App}>
       <IndexRoute component={Welcome}/>
       <Route path="signin"  component={Signin} />
@@ -24,5 +23,6 @@ export default routes = (
       <Route path="organizations/:orgId/users/:userId/notes" component={RequireAuth(NoteForm)} />
       <Route path="organizations/:orgId/users/:userId/notes/:noteId" component={RequireAuth(NoteFormEdit)} />
     </Route>
-  </Router>
 );
+
+export default routes;

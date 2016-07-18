@@ -12,7 +12,7 @@ export default function ( state = INITIAL_STATE, action) {
     case NOTE_CAT:
       return {...state, noteCats: action.payload}
     default:
-    return state;
+      return state;
   }
 
 }

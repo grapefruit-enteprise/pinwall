@@ -14,8 +14,8 @@ export default class Wall extends Component {
   componentWillMount() {
     this.props.fetchNotes(this.props.params.orgId);
     this.props.fetchCategories(this.props.params.orgId);
-
   }
+
 
   renderNotes() {
     return this.props.notes.map(note => {
@@ -49,7 +49,7 @@ export default class Wall extends Component {
 }
 
 function mapStateToProps(state) {
-  return { notes: state.notes.all };
+  return { notes: state.notes.all};
 }
 
 

@@ -8,10 +8,10 @@ import      { deleteNote,
 
 class Note extends Component {
 
-  componentWillMount(){
-    this.props.getNoteCat(this.props.params.noteId);
+  // componentWillMount(){
+  //   this.props.getNoteCat(this.props.params.noteId);
+  // }
 
-  }
   onDeleteClick(){
     this.props.deleteNote(this.props.params.orgId , this.props.params.noteId)
 
@@ -45,7 +45,7 @@ class Note extends Component {
                      <Link to={'/organizations/' + orgId}><i className="fa fa-chevron-left" aria-hidden="true">  Back</i></Link>
 
                       <div className="float-left">
-                      <Link to={'/organizations/' + orgId + '/users/1/notes/' + noteId }><i onClick={() => this.props.showEditNote(currentNote)}  className="fa fa-pencil " aria-hidden="true"></i></Link>
+                      <Link to={'/organizations/' + orgId + '/users/1/notes/' + noteId }><i className="fa fa-pencil " aria-hidden="true"></i></Link>
 
                       <a><i onClick={this.onDeleteClick.bind(this)} className="fa fa-trash " aria-hidden="true"></i></a>
                       </div>
@@ -61,6 +61,8 @@ class Note extends Component {
     )
   }
 }
+
+// onClick={() => this.props.showEditNote(currentNote)}
 
 function mapStateToProps(state) {
   return {note: state.notes.note};

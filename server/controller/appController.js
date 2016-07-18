@@ -155,7 +155,8 @@ module.exports = {
                 img     : req.body.img,
                 content : req.body.content,
             };
-            var tags = req.body.tags.toLowerCase().split(" ");
+            let tags = [];
+            if (req.body.tags) tags = req.body.tags.toLowerCase().split(" ");
             console.log("PUTS req.body", req.body)
             console.log("PUTS req.params", req.params)
             var noteId = req.params.id;
@@ -211,7 +212,8 @@ module.exports = {
                 organizationId  : req.params.orgId,
                 userId          : req.params.userId
             };
-            var tags = req.body.tags.toLowerCase().split(" ");
+            let tags = [];
+            if (req.body.tags) tags = req.body.tags.toLowerCase().split(" ");
             var categories = req.body.categories;
 
             console.log("PUTS req.body", req.body)

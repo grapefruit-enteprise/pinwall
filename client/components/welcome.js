@@ -1,12 +1,20 @@
-import React, { Component } from 'react';
-import        { connect }   from 'react-redux';
-import          { Link }    from 'react-router';
-import        { fetchOrgs } from '../actions/auth.js'
+import React, { Component }     from 'react';
+import        { connect }       from 'react-redux';
+import { Link, browserHistory } from 'react-router';
+import        { fetchOrgs }     from '../actions/auth.js';
+
 
 class Welcome extends Component {
 
   componentWillMount() {
-    this.props.fetchOrgs()
+    // var token = localStorage.getItem('token');
+    // var orgId = localStorage.getItem('orgId');
+    // if (token) {
+    //   console.log("orgId is..", orgId, ',', typeof orgId);
+    //   browserHistory.push(`/organizations/${orgId}`)
+    // } else {
+      this.props.fetchOrgs();
+    // }
   }
 
   render(){
@@ -70,4 +78,9 @@ class Welcome extends Component {
    )
   }
 }
-export default connect( null, { fetchOrgs:fetchOrgs})(Welcome);
+
+function mapStateToProps(state) {
+  return {orgId: state.auth.orgId};
+}
+
+export default connect( mapStateToProps, { fetchOrgs:fetchOrgs})(Welcome);

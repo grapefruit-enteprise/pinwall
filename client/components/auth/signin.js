@@ -36,7 +36,7 @@ class Signin extends Component {
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
                             <div className={`form-group ${organizationId.touched && organizationId.error ? 'has-error' : ''}`} >
-                              <label className="control-label" id="org" for="Select-Org">Please select your organization</label>
+                              <label className="control-label" id="org" htmlFor="Select-Org">Please select your organization</label>
                                <select name="Select-Org" className="form-control" {...organizationId} required>
                                 <option>choose ...</option>
                                 { this.props.allOrgs.map( org => <option key={org.id} value={org.id}>{org.name}</option>) }

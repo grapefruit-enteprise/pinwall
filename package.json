@@ -41,8 +41,6 @@
     "react-router": "^2.5.2",
     "redux": "^3.0.4",
     "redux-form": "^5.3.1",
-    "redux-persist": "^3.2.2",
-    "redux-persist-transform-encrypt": "^0.1.2",
     "redux-thunk": "^2.1.0",
     "request": "^2.72.0",
     "sequelize": "^3.23.4"

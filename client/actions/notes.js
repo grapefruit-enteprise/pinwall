@@ -17,7 +17,6 @@ export function fetchNotes(orgId, catId) {
    }
 }
 
-
 export function showNote(note) {
  return {
      type: CURRENT_NOTE,
@@ -31,11 +30,13 @@ export function showEditNote(note) {
      payload: note
    }
 }
-export function getNoteCat(noteId) {
-  let url = `/api/organizations/1/notes/${noteId}/categories`;
+
+export function getNoteCat(orgId, noteId) {
+  let url = `/api/organizations/${orgId}/notes/${noteId}/categories`;
       return function(dispatch) {
         axios.get(url)
         .then(response => {
+          console.log('response to getNoteCat',response)
            dispatch({ type: NOTE_CAT , payload: response.data});
         })
         .catch(() => {
@@ -67,9 +68,7 @@ export function createNote(formProps, userId, orgId){
 
     });
    }
-
 }
-
 
 export function updateNote(formProps, orgId, noteId){
 
@@ -88,7 +87,7 @@ export function updateNote(formProps, orgId, noteId){
 }
 
 export function deleteNote(orgId, noteId){
- console.log("WEEWWEE")
+
   const url = `/api/organizations/${orgId}/notes/${noteId}`
   return function(dispatch) {
     axios.delete(url)
