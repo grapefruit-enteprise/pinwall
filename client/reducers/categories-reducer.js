@@ -1,11 +1,11 @@
-import { CATEGORIES } from '../actions/retrieve-categories-action.js';
+import { CATEGORIES } from '../actions/types'
 
-function CategoriesReducer(state = ['category'], action) {
+const INITIAL_STATE = { categories: []  };
+
+export default function( state = INITIAL_STATE , action) {
   switch(action.type) {
     case CATEGORIES:
-      return action.payload
+      return {...state, categories: action.payload}
   }
   return state;
 }
-
-export default CategoriesReducer;
