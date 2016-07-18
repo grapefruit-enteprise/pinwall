@@ -1,5 +1,5 @@
 var bcrypt    = require('bcrypt');
-var db = require('../db.js');
+var db        = require('../db.js');
 
 
 
@@ -20,14 +20,46 @@ exports.usersFetched = function(req, res, orgId){
     });
 }
 
+exports.userOrganizationFetched = function(req, res, userId){
+
+    db.User.findById(userId)
+        .then(function(user){
+        db.Organization.findAll({ where: { id: user.organizationId }})
+            .then(function(organizations){
+                console.log("All organizations ", JSON.stringify(organizations, null ,4));
+                res.status(200).send(organizations);
+        })
+        .catch(function (err) {
+                console.error("line 13: Note  Model", err.message);
+                res.status(500).send(err.message);
+
+        });
+    }).catch(function(err){
+        res.status(500).send(err.message);
+    });
+}
+
 
 
 exports.userCreate = function(req, res, newUser) {
-    console.log("line 4: note", newUser);
+    console.log("line 25: creat user", newUser);
+    var orgId = newUser.organizationId
     db.User.create(newUser)
         .then(function(user){
             console.log("line 7: User has been Created");
-            res.status(200).send(user.toPublicJSON());
+            user.organizationId = orgId;
+            var token = user.generateToken('authentication');
+            console.log("res.header Value :::", res.header)
+            if(token){
+                res.status(200)
+                    .header('Auth', token)
+                    .header('currentUser', user.id)
+                    .send(user.toPublicJSON())
+            }
+            else
+            {
+                res.status(401).send();
+            }
 
         })
         .catch(function(err){
@@ -80,11 +112,23 @@ exports.userLogin = function(req, res, loginUser){
         }})
         .then(function(user){
         console.log(user)
-            if(!user || !bcrypt.compareSync(loginUser.password, user.get('passwordHash'))){
+            if(!user || !bcrypt.compareSync(loginUser.password,     user.get('passwordHash'))){
                 return res.status(401).send();
             }
 
-            res.status(200).send(user.toPublicJSON())
+            var token = user.generateToken('authentication');
+        console.log("res.header Value :::", res.header)
+        if(token){
+            res.status(200)
+                .header('Auth', token)
+                .header('currentUser', user.id)
+                .send(user.toPublicJSON())
+        }
+        else
+        {
+            res.status(401).send();
+        }
+
         })
         .catch(function(err){
             res.status(500).send(err.message);
@@ -92,6 +136,8 @@ exports.userLogin = function(req, res, loginUser){
 
 
 }
+
+
 
 
 
