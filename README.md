@@ -1,3 +1,11 @@
+
+
+
+![pinwalldemo](https://cloud.githubusercontent.com/assets/13357063/16933320/3807d3ac-4d01-11e6-97d1-fc0476f10b1d.gif)
+
+
+
+
 ## Developer Documentation
 #### Tools Used:
 * [React](https://facebook.github.io/react/)
@@ -335,21 +343,6 @@ api/organizations/:orgId/users                 │ POST         │ {           
 NOTES
 
 ```
-
-
-
-
-
-
-
-![pinwalldemo](https://cloud.githubusercontent.com/assets/13357063/16933320/3807d3ac-4d01-11e6-97d1-fc0476f10b1d.gif)
-
-
-
-
-
-
-
 
 
 
