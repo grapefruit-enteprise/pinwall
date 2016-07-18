@@ -339,6 +339,6 @@ NOTES
 
 ## The Pinwall Team
 * [Chadd Bennett](https://github.com/chaddbennett)
-* [Marco Berardini](https://github.com/carlbernardo)
+* [Marco Berardini](https://github.com/mb0606)
 * [Joseph Capezzuto](https://github.com/Capezzuto)
 * [Stephanie Velazquez](https://github.com/stephvelazquez)
