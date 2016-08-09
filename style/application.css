@@ -41,7 +41,9 @@ nav {
 .navbar-nav {
     padding-top: 10px;
 }
-
+.error-message {
+  color: #d9534f;
+}
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     background: #2B2E2E;
 
