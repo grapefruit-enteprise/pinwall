@@ -66,7 +66,7 @@ class Signup extends Component {
                             <label className="control-label">Email</label>
                             <input className="form-control" type="email" {...email} />
                           </div>
-
+                          <div className="error-message">{password.touched && password.error ? password.error : ''}</div>
                           <div className={`form-group ${password.touched && password.error ? 'has-error' : ''}`}>
                           {password.touched && password.error ? <div className="control-label">Your passwords have to match</div> : ''}
                             <label className="control-label" >Password</label>
@@ -96,7 +96,6 @@ function validate(formProps){
 
   if(formProps.password){
     if(formProps.password.length < 7){
-
       errors.password = "Your Password must be at least 7 characters"
     }
   }
@@ -105,7 +104,6 @@ function validate(formProps){
     errors.password = 'Passwords must match'
 
   }
-
 
 
   if(!formProps.email) {
